@@ -3,164 +3,380 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Baichuan ZENG</title>
+  <title>Baichuan ZENG - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+    :root {
+      --primary-color: #2c3e50; /* Dark Blue/Grey */
+      --secondary-color: #3498db; /* Bright Blue */
+      --text-color: #333;
+      --light-grey: #f4f6f8; /* Slightly lighter for sidebar background */
+      --border-color: #ddd;
+      --background-color: #e9ecef; /* Main page background */
+      --white-color: #fff;
+      --link-color: #2980b9;
+      --hover-link-color: #1abc9c; /* Teal for hover */
+
+      --sidebar-width-desktop: 320px;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 20px;
-      background-color: #f9f9f9;
-      color: #333;
+      padding: 0;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      line-height: 1.7;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      font-size: 16px;
     }
 
-    h1, h2, h3 {
-      color: #222;
+    .page-wrapper {
+      display: flex;
+      min-height: 100vh;
     }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
+    /* --- Sidebar --- */
+    .sidebar {
+      width: var(--sidebar-width-desktop);
+      position: fixed; /* Fixed position */
+      left: 0;
+      top: 0;
+      bottom: 0; /* Makes it full height */
+      background-color: var(--light-grey);
+      padding: 30px 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      text-align: center; /* Center text */
+      overflow-y: auto; /* Scroll if sidebar content is too tall */
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      z-index: 100;
     }
 
-    .contact {
-      font-size: 14px;
+    .sidebar .logo img {
+      max-width: 150px; /* Adjust as needed */
+      height: auto;
+      margin-bottom: 25px;
+    }
+
+    .profile-photo {
+      width: 220px; /* Larger photo width */
+      height: auto; /* Maintain aspect ratio, or set a fixed height for specific rectangle */
+      /* height: 280px; /* Example fixed height for a more portrait rectangle */
+      border-radius: 8px; /* Rectangular with slightly rounded corners, set to 0 for sharp */
+      object-fit: cover;
+      border: 4px solid var(--white-color); /* White border to lift it */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       margin-bottom: 20px;
     }
 
+    .sidebar h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 26px; /* Adjusted for sidebar */
+      font-weight: 500;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .sidebar .contact {
+      font-size: 13px; /* Smaller for sidebar */
+      color: #444; /* Slightly darker for readability */
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+    .sidebar .contact a {
+      color: #444;
+      text-decoration: none;
+      display: block; /* Make each part of contact info on new line if needed */
+      margin-bottom: 3px;
+    }
+    .sidebar .contact a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+
+    /* --- Main Content --- */
+    .main-content {
+      margin-left: var(--sidebar-width-desktop); /* Offset by sidebar width */
+      flex-grow: 1; /* Takes remaining space */
+      padding: 40px;
+      background-color: var(--white-color);
+      min-height: 100vh; /* Ensure it can fill screen if content is short */
+      box-shadow: -3px 0 10px rgba(0,0,0,0.05); /* Subtle shadow from sidebar */
+    }
+
+    /* --- Section Styling (within main-content) --- */
+    h2 { /* Was h2, now for main content sections */
+      font-family: 'Roboto', sans-serif;
+      font-size: 28px; /* Larger for main content titles */
+      font-weight: 500;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--secondary-color);
+      display: inline-block;
+    }
+
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px; /* Adjusted for main content */
+      font-weight: 500;
+      color: var(--primary-color);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
     section {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      padding-bottom: 25px;
+    }
+    section:not(:last-child) {
+        border-bottom: 1px solid var(--border-color);
     }
 
     ul {
-      padding-left: 20px;
+      padding-left: 25px;
+      list-style-type: disc;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: 10px;
     }
 
     .subsection {
-      margin-top: 10px;
+      margin-bottom: 25px;
+    }
+    .subsection strong {
+        font-weight: 500;
+    }
+    .subsection strong a {
+        font-weight: 500;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+    }
+
+    a:hover, a:focus {
+      color: var(--hover-link-color);
+      text-decoration: underline;
+    }
+
+    p {
+        margin-bottom: 15px;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 992px) { /* Tablet and below - sidebar becomes static top bar */
+      .page-wrapper {
+        flex-direction: column; /* Stack sidebar (now header) and main content */
       }
 
-      .container {
+      .sidebar {
+        position: static; /* No longer fixed */
+        width: 100%;
+        height: auto; /* Auto height */
+        bottom: auto; /* Reset bottom */
+        flex-direction: column; /* Keep items stacked */
+        align-items: center; /* Center items */
         padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bottom shadow */
+        z-index: auto;
+      }
+
+      .sidebar .logo img {
+        max-width: 120px;
+        margin-bottom: 15px;
+      }
+
+      .profile-photo {
+        width: 150px; /* Adjust for mobile header */
+        /* height: 180px; */ /* Example */
+        margin-bottom: 15px;
+      }
+
+      .sidebar h1 {
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+      .sidebar .contact {
+        font-size: 12px;
+        display: flex; /* Try to keep contact info more compact */
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .sidebar .contact a {
+        margin: 0 5px; /* Space out contact links if they are side-by-side */
+        display: inline;
+      }
+
+
+      .main-content {
+        margin-left: 0; /* No offset needed */
+        padding: 25px;
+        box-shadow: none;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) { /* Smaller mobile devices */
+      body {
+        font-size: 15px;
+      }
+      .main-content {
+        padding: 20px 15px;
+      }
+      .sidebar {
+        padding: 15px;
+      }
+      .profile-photo {
+        width: 120px;
+      }
+      .sidebar h1 {
+        font-size: 20px;
+      }
+       .sidebar .contact {
+        flex-direction: column; /* Stack contact details fully on very small screens */
+      }
+      .sidebar .contact a {
+        margin-bottom: 5px;
+      }
+
+      h2 {
+        font-size: 22px;
+        text-align: center;
+        display: block;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="pictures/cuhk-logo.PNG" alt="CUHK Logo" style="max-width: 50%; height: auto;">
-    </div>
-    <h1>ZENG Baichuan, Nokk</h1>
-    <div class="contact">
-      Tel: +852-68502154 | School: baichuan@link.cuhk.edu.hk | Private: zbc2385505079@gmail.com
-    </div>
-
-    <section>
-      <h2>General Introduction</h2>
-      <p>
-        Currently I am working on two projects: a machine learning model predicting inhibitors for tyrosyl-DNA phosphodiesterase 1 (Tdp1) for anticancer therapy, and a computer vision-based Final Year Project under <a href="https://www.cse.cuhk.edu.hk/~cwfu/" target="_blank" rel="noopener noreferrer">Prof. Chi-Wing FU, Philip</a>.
-      </p>
-    </section>
-
-    <section>
-      <h2>Education</h2>
-      <div class="subsection">
-        <strong><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a></strong>, Hong Kong SAR<br/>
-        B.Sc. in Computer Science (2022/09–2026/07)[Anticipated]<br/>
-        - Area of interest: AI, ML, Computer Vision, Robotics, Mixed Reality, Embodied Intelligence<br/>
-        - Minor: German | College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a>
+  <div class="page-wrapper">
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="pictures/cuhk-logo.PNG" alt="CUHK Logo">
       </div>
-      <div class="subsection">
-        <strong><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a></strong>, Heidelberg, Germany<br/>
-        International Summer School (2025/08)
+      <img src="pictures/me_dubai.jpg" alt="Baichuan ZENG" class="profile-photo">
+      <h1>TSANG Baak Cyun(曾百川), Nokk</h1>
+      <div class="contact">
+        <a href="tel:+85268502154">Tel: +852-68502154</a>
+        <a href="mailto:baichuan@link.cuhk.edu.hk">School: baichuan@link.cuhk.edu.hk</a>
+        <a href="mailto:zbc2385505079@gmail.com">Private: zbc2385505079@gmail.com</a>
       </div>
-      <div class="subsection">
-        <strong><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a></strong>, Hong Kong SAR<br/>
-        Secondary Education (2018/09–2022/07)
-      </div>
-    </section>
+    </aside>
 
-    <section>
-      <h2>Academic Achievements</h2>
-      <ul>
-        <li><strong>Co-Author</strong>, IEEE TASE (Submitted 2025/03): <em>Cognitive UAV Tracking: Leveraging DRL and Hybrid Curriculum Learning for Target Reacquisition</em></li>
-        <li><strong>Co-Author</strong>, IEEE ICRA 2025 (Accepted 2025/01): <em>Nezha-MB: Design and Implementation of a Morphing Hybrid Aerial-Underwater Vehicle</em></li>
-        <li><strong>ELITE Stream Student</strong>, Faculty of Engineering, CUHK (2022/09–2024/12)</li>
-        <li><strong>Best Performance, Individual Winner</strong>, HK Mathematics Olympiad (2021/07): Full-mark in Paper Two</li>
-        <li><strong>Third Honor Award</strong>, HK Physics Olympiad (2020/08)</li>
-      </ul>
-    </section>
+    <main class="main-content">
+      <section id="introduction">
+        <h2>General Introduction</h2>
+        <p>
+          As a penultimate UG student passionate about AI agents and robotic perception, I am currently involved in two key projects: Machine Learning for Molecular Prediction: training models to predict inhibitors of Tdp1, contributing to drug discovery with members from the Faculty of Medicine of CUHK; Computer Vision for Spatial Understanding: the final year project under <a href="https://www.cse.cuhk.edu.hk/~cwfu/" target="_blank" rel="noopener noreferrer">Prof. Chi-Wing FU, Philip</a>, focusing on 3D visual and scene understanding. I am particularly interested in how intelligent agents can perceive, reason, and act in complex environments.
+        </p>
+      </section>
 
-    <section>
-      <h2>Research Experience</h2>
-      <div class="subsection">
-        <strong>Participant</strong>, Online Program in Computer Vision in Robotics<br/>
-        - Advised by <a href="https://guangmingw.github.io/" target="_blank" rel="noopener noreferrer">Dr. Guangming Wang</a>, University of Cambridge
-      </div>
-      <div class="subsection">
-        <strong>Summer Research</strong>, <a href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">Shanghai Jiao Tong University</a> (2023/07–2023/08)<br/>
-        - Worked on Morphing Hybrid Aerial-Underwater vehicle<br/>
-        - Conducted outdoor experiments, data analysis, and contributed to paper writing
-      </div>
-    </section>
+      <section id="education">
+        <h2>Education</h2>
+        <div class="subsection">
+          <h3><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a>, Hong Kong SAR</h3>
+          <p>
+            B.Sc. in Computer Science (2022/09–2026/07) [Anticipated]<br/>
+            - Area of interest: AI, ML, Computer Vision, Robotics, Mixed Reality, Embodied Intelligence<br/>
+            - Minor: German | College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a>
+          </p>
+        </div>
+        <div class="subsection">
+          <h3><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a>, Heidelberg, Germany</h3>
+          <p>International Summer School (2025/08)</p>
+        </div>
+        <div class="subsection">
+          <h3><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a>, Hong Kong SAR</h3>
+          <p>Secondary Education (2018/09–2022/07)</p>
+        </div>
+      </section>
 
-    <section>
-      <h2>Technical Skills</h2>
-      <ul>
-        <li>Programming: C/C++, Java, Python, SQL, HTML, JavaScript</li>
-        <li>Algorithm Design, 3D Modeling, Database Admin, Project Management, Model Training, Software Development, Technical Writing</li>
-      </ul>
-    </section>
+      <section id="achievements">
+        <h2>Academic Achievements</h2>
+        <ul>
+          <li><strong>Co-Author</strong>, IEEE TASE (Submitted 2025/03): <em>Cognitive UAV Tracking: Leveraging DRL and Hybrid Curriculum Learning for Target Reacquisition</em></li>
+          <li><strong>Co-Author</strong>, IEEE ICRA 2025 (Accepted 2025/01): <em>Nezha-MB: Design and Implementation of a Morphing Hybrid Aerial-Underwater Vehicle</em></li>
+          <li><strong>ELITE Stream Student</strong>, Faculty of Engineering, CUHK (2022/09–2024/12)</li>
+          <li><strong>Best Performance, Individual Winner</strong>, Hong Kong Mathematics Olympiad (2021/07): Full-mark in Paper Two</li>
+          <li><strong>Third Honor Award</strong>, Hong Kong Physics Olympiad (2020/08)</li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>Language Proficiency</h2>
-      <ul>
-        <li>English</li>
-        <li>Mandarin</li>
-        <li>Cantonese</li>
-        <li>German</li>
-      </ul>
-    </section>
+      <section id="research">
+        <h2>Research Experience</h2>
+        <div class="subsection">
+          <h3>Participant, Online Program in Computer Vision in Robotics</h3>
+          <p>- Advised by <a href="https://guangmingw.github.io/" target="_blank" rel="noopener noreferrer">Dr. Guangming Wang</a>, University of Cambridge</p>
+        </div>
+        <div class="subsection">
+          <h3>Summer Research, <a href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">Shanghai Jiao Tong University</a> (2023/07–2023/08)</h3>
+          <p>
+            - Advised by <a href="https://soo.sjtu.edu.cn/en/teacher-list/zengzheng.html" target="_blank" rel="noopener noreferrer">Prof. Zheng Zeng</a><br/>
+            - Worked on Morphing Hybrid Aerial-Underwater vehicle<br/>
+            - Conducted outdoor experiments, data analysis, and contributed to paper writing
+          </p>
+        </div>
+      </section>
 
-    <section>
-      <h2>Related Courses</h2>
-      <ul>
-        <li>Data Structures</li>
-        <li>Computer Organization & Design</li>
-        <li>Intro to Operating Systems</li>
-        <li>Intro to Database Systems</li>
-        <li>Design & Analysis of Algorithms</li>
-        <li>Formal Languages & Automata Theory</li>
-        <li>Fundamentals of Machine Learning</li>
-        <li>Software Engineering</li>
-      </ul>
-    </section>
+      <section id="skills">
+        <h2>Technical Skills</h2>
+        <ul>
+          <li>Programming: C/C++, Java, Python, SQL, HTML, JavaScript</li>
+          <li>Algorithm Design, 3D Modeling, Database Admin, Project Management, Model Training, Software Development, Technical Writing</li>
+        </ul>
+      </section>
 
-    <section>
-      <h2>Extra-Curricular Activities</h2>
-      <div class="subsection">
-        <strong>Exhibitor</strong>, Dental South China International Expo, Guangzhou (2024/03)<br/>
-        - Engaged with visitors, demonstrated dental implants, answered inquiries
-      </div>
-      <div class="subsection">
-        <strong>Member</strong>, SHHO College Table Tennis Team (2023/09–Current)<br/>
-        <strong>Member</strong>, SHHO College Basketball Team (2022/07–2024/06)
-      </div>
-    </section>
+      <section id="languages">
+        <h2>Language Proficiency</h2>
+        <ul>
+          <li>English</li>
+          <li>Mandarin</li>
+          <li>Cantonese</li>
+          <li>German</li>
+        </ul>
+      </section>
+
+      <section id="courses">
+        <h2>Related Courses</h2>
+        <ul>
+          <li>Data Structures</li>
+          <li>Computer Organization & Design</li>
+          <li>Intro to Operating Systems</li>
+          <li>Intro to Database Systems</li>
+          <li>Design & Analysis of Algorithms</li>
+          <li>Formal Languages & Automata Theory</li>
+          <li>Fundamentals of Machine Learning</li>
+          <li>Software Engineering</li>
+        </ul>
+      </section>
+
+      <section id="extracurricular">
+        <h2>Extra-Curricular Activities</h2>
+        <div class="subsection">
+          <h3>Exhibitor, Dental South China International Expo, Guangzhou (2024/03)</h3>
+          <h3>Member, SHHO College Table Tennis Team (2023/09–Current)</h3>
+          <h3>Member, SHHO College Basketball Team (2022/07–2024/06)</h3>
+        </div>
+      </section>
+    </main>
   </div>
 </body>
 </html>
