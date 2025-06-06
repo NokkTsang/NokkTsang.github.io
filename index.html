@@ -6,6 +6,7 @@
   <title>Baichuan ZENG - Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
       --primary-color: #2c3e50; /* Dark Blue/Grey */
@@ -19,7 +20,9 @@
       --hover-link-color: #1abc9c; /* Teal for hover */
 
       --sidebar-width-desktop: 320px;
-      --transition-speed: 0.3s;
+      --transition-speed: 0.4s;
+      --card-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      --card-shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     html {
@@ -107,20 +110,23 @@
     }
 
     .social-links {
-      margin-top: 15px;
+      margin-top: 20px;
       display: flex;
-      gap: 15px;
+      gap: 20px;
       justify-content: center;
     }
 
     .social-links a {
       color: var(--primary-color);
       font-size: 20px;
-      transition: color 0.3s ease;
+      transition: all var(--transition-speed);
+      opacity: 0.8;
     }
 
     .social-links a:hover {
       color: var(--secondary-color);
+      opacity: 1;
+      transform: translateY(-2px);
     }
 
     /* --- Main Content --- */
@@ -134,13 +140,13 @@
     }
 
     /* --- Section Styling (within main-content) --- */
-    h2 { /* Was h2, now for main content sections */
+    h2 {
       font-family: 'Roboto', sans-serif;
-      font-size: 28px; /* Larger for main content titles */
+      font-size: 28px;
       font-weight: 500;
       color: var(--primary-color);
       margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       padding-bottom: 10px;
       border-bottom: 2px solid var(--secondary-color);
       display: inline-block;
@@ -148,11 +154,11 @@
 
     h3 {
       font-family: 'Roboto', sans-serif;
-      font-size: 20px; /* Adjusted for main content */
+      font-size: 20px;
       font-weight: 500;
       color: var(--primary-color);
       margin-top: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     section {
@@ -165,16 +171,28 @@
 
     ul {
       padding-left: 25px;
-      list-style-type: disc;
+      list-style-type: none;
       margin-bottom: 15px;
     }
 
     li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--secondary-color);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
     }
 
     .subsection {
       margin-bottom: 25px;
+      padding-left: 15px;
+      border-left: 1px solid var(--border-color);
     }
     .subsection strong {
         font-weight: 500;
@@ -290,57 +308,60 @@
     /* Back to Top Button */
     .back-to-top {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 30px;
+      right: 30px;
       background-color: var(--primary-color);
       color: white;
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
       opacity: 0;
-      transition: opacity var(--transition-speed), transform var(--transition-speed);
+      transition: all var(--transition-speed);
       z-index: 1000;
       cursor: pointer;
+      box-shadow: var(--card-shadow);
     }
 
     .back-to-top.visible {
-      opacity: 1;
+      opacity: 0.8;
     }
 
     .back-to-top:hover {
-      transform: translateY(-5px);
-      background-color: var(--secondary-color);
+      opacity: 1;
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
     }
 
     /* Section Cards */
     .section-card {
       background: var(--white-color);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      border-radius: 4px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: var(--card-shadow);
+      transition: box-shadow var(--transition-speed);
+      border: 1px solid var(--border-color);
     }
 
     .section-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow-hover);
     }
 
     /* Publication Item */
     .publication-item {
-      padding: 15px;
-      border-left: 3px solid var(--secondary-color);
-      margin-bottom: 15px;
+      padding: 20px;
+      border-left: 2px solid var(--secondary-color);
+      margin-bottom: 20px;
       transition: transform var(--transition-speed);
+      background-color: var(--light-grey);
     }
 
     .publication-item:hover {
-      transform: translateX(10px);
+      transform: translateX(5px);
     }
 
     /* CV Download Button */
@@ -369,27 +390,42 @@
       background-color: var(--white-color);
       padding: 15px 40px;
       display: flex;
-      gap: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      gap: 30px;
+      box-shadow: var(--card-shadow);
       z-index: 100;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .nav-link {
       color: var(--primary-color);
       text-decoration: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: all var(--transition-speed);
+      padding: 5px 0;
+      position: relative;
+      font-weight: 500;
+      transition: color var(--transition-speed);
     }
 
-    .nav-link:hover {
-      color: var(--secondary-color);
-      background-color: var(--light-grey);
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary-color);
+      transition: width var(--transition-speed);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
     }
 
     .nav-link.active {
       color: var(--secondary-color);
-      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    .nav-link.active::after {
+      width: 100%;
     }
 
     /* Section Visibility */
@@ -415,6 +451,148 @@
         padding: 10px 20px;
       }
     }
+
+    /* Map Styles */
+    #Map {
+      height: 500px;
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--card-shadow);
+    }
+
+    .map-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .city-info {
+      padding: 25px;
+      background: var(--white-color);
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+      margin-top: 25px;
+      display: none;
+      border: 1px solid var(--border-color);
+    }
+
+    .city-info.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .city-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .city-header h3 {
+      margin: 0;
+      color: var(--primary-color);
+    }
+
+    .city-date {
+      color: var(--secondary-color);
+      font-size: 0.9em;
+    }
+
+    .city-time {
+      font-size: 1.2em;
+      color: var(--primary-color);
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    .city-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .city-gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: all var(--transition-speed);
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+    }
+
+    .city-gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .map-popup {
+      font-family: 'Roboto', sans-serif;
+      padding: 10px;
+    }
+
+    .map-popup h3 {
+      margin: 0 0 5px 0;
+      color: var(--primary-color);
+      font-size: 16px;
+    }
+
+    .map-popup p {
+      margin: 0;
+      color: var(--text-color);
+      font-size: 14px;
+    }
+
+    .map-popup .city-time {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .custom-popup .leaflet-popup-content-wrapper {
+      background: var(--white-color);
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .custom-popup .leaflet-popup-tip {
+      background: var(--white-color);
+    }
+
+    .custom-marker {
+      background: var(--secondary-color);
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: var(--card-shadow);
+    }
+
+    .terminator {
+      fill: rgba(0, 0, 0, 0.4);
+      stroke: rgba(0, 0, 0, 0.5);
+      stroke-width: 1.5;
+      transition: fill 0.5s ease-in-out;
+    }
+
+    .twilight {
+      fill: rgba(0, 0, 0, 0.2);
+      transition: fill 0.5s ease-in-out;
+    }
+
+    .terminator-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -430,7 +608,7 @@
       <div class="contact">
         <a href="javascript:void(0)" onclick="copyPhoneNumber()" id="phoneLink">Tel: +852-68502154</a>
         <a href="javascript:void(0)" onclick="copyEmail('baichuan@link.cuhk.edu.hk', 'schoolEmailLink')" id="schoolEmailLink">School: baichuan@link.cuhk.edu.hk</a>
-        <a href="javascript:void(0)" onclick="copyEmail('zbc2385505079@gmail.com', 'privateEmailLink')" id="privateEmailLink">Private: zbc2385505079@gmail.com</a>
+        <a href="javascript:void(0)" onclick="copyEmail('zbc2385505079@gmail.com', 'privateEmailLink')" id="privateEmailLink">Personal: zbc2385505079@gmail.com</a>
         <div class="social-links">
           <a href="https://github.com/NokkTsang" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/nokk-tsang-zbc68502154/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -443,6 +621,7 @@
       <a href="#home" class="nav-link active" data-section="home">Home</a>
       <a href="#publications" class="nav-link" data-section="publications">Publications</a>
       <a href="#cv" class="nav-link" data-section="cv">CV</a>
+      <a href="#tours" class="nav-link" data-section="tours">Tours</a>
     </nav>
 
     <main class="main-content">
@@ -568,6 +747,178 @@
           <a href="#" class="cv-button">Download CV (Coming Soon)</a>
         </div>
       </section>
+
+      <section id="tours" class="section">
+        <div class="section-card">
+          <h2>Global Footprint</h2>
+          <div class="map-container">
+            <div id="Map"></div>
+          </div>
+          
+          <!-- ===== North America ===== -->
+
+          <!-- Los Angeles -->
+          <div id="losAngeles" class="city-info">
+            <div class="city-header">
+              <h3>Los Angeles</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="losAngeles-gallery"></div>
+          </div>
+
+          <!-- San Francisco -->
+          <div id="sanFrancisco" class="city-info">
+            <div class="city-header">
+              <h3>San Francisco</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="sanFrancisco-gallery"></div>
+          </div>
+
+          <!-- New York -->
+          <div id="newYork" class="city-info">
+            <div class="city-header">
+              <h3>New York City</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="newYork-gallery"></div>
+          </div>
+
+          <!-- Atlanta -->
+          <div id="atlanta" class="city-info">
+            <div class="city-header">
+              <h3>Atlanta</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="atlanta-gallery"></div>
+          </div>
+
+
+          <!-- ===== Europe ===== -->
+
+          <!-- Stuttgart -->
+          <div id="stuttgart" class="city-info">
+            <div class="city-header">
+              <h3>Stuttgart</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="stuttgart-gallery"></div>
+          </div>
+
+          <!-- Amsterdam -->
+          <div id="amsterdam" class="city-info">
+            <div class="city-header">
+              <h3>Amsterdam</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="amsterdam-gallery"></div>
+          </div>
+
+          <!-- Cologne -->
+          <div id="cologne" class="city-info">
+            <div class="city-header">
+              <h3>Cologne</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="cologne-gallery"></div>
+          </div>
+
+          <!-- Düsseldorf -->
+          <div id="dusseldorf" class="city-info">
+            <div class="city-header">
+              <h3>Düsseldorf</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="dusseldorf-gallery"></div>
+          </div>
+
+
+          <!-- ===== East Asia ===== -->
+
+          <!-- Tokyo -->
+          <div id="tokyo" class="city-info">
+            <div class="city-header">
+              <h3>Tokyo</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="tokyo-gallery"></div>
+          </div>
+
+          <!-- Osaka -->
+          <div id="osaka" class="city-info">
+            <div class="city-header">
+              <h3>Osaka</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="osaka-gallery"></div>
+          </div>
+
+          <!-- Taipei -->
+          <div id="taipei" class="city-info">
+            <div class="city-header">
+              <h3>Taipei</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="taipei-gallery"></div>
+          </div>
+
+
+          <!-- ===== West Asia ===== -->
+
+          <!-- Dubai -->
+          <div id="dubai" class="city-info">
+            <div class="city-header">
+              <h3>Dubai</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="dubai-gallery"></div>
+          </div>
+
+
+          <!-- ===== Mainland China ===== -->
+
+          <!-- Shanghai -->
+          <div id="shanghai" class="city-info">
+            <div class="city-header">
+              <h3>Shanghai</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="shanghai-gallery"></div>
+          </div>
+
+          <!-- Shenzhen -->
+          <div id="shenzhen" class="city-info">
+            <div class="city-header">
+              <h3>Shenzhen</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="shenzhen-gallery"></div>
+          </div>
+
+          <!-- Chongqing -->
+          <div id="chongqing" class="city-info">
+            <div class="city-header">
+              <h3>Chongqing</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="chongqing-gallery"></div>
+          </div>
+
+
+          <!-- ===== Current Base ===== -->
+           
+          <!-- Hong Kong -->
+          <div id="hongKong" class="city-info">
+            <div class="city-header">
+              <h3>Hong Kong</h3>
+              <span class="city-date">Current Base</span>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="hongKong-gallery"></div>
+          </div>
+
+        </div>
+      </section>
     </main>
   </div>
 
@@ -575,6 +926,8 @@
     <i class="fas fa-arrow-up"></i>
   </a>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-terminator"></script>
   <script>
     // Existing scripts...
 
@@ -661,6 +1014,485 @@
       const hash = window.location.hash.slice(1) || 'home';
       showSection(hash);
     });
+
+    // Initialize map when tours section is shown
+    let map;
+    let terminatorOverlay;
+    const cities = {
+      // ===== North America =====
+      losAngeles: { 
+        lat: 34.0522, 
+        lng: -118.2437, 
+        name: "Los Angeles", 
+        date: "2024",
+        description: "The entertainment capital of the world.",
+        timezone: "America/Los_Angeles",
+        photos: [
+          { src: "pictures/losangeles1.jpg", alt: "Los Angeles" }
+          // Add more photos by adding new objects here
+          // { src: "pictures/losangeles2.jpg", alt: "Los Angeles" }
+        ]
+      },
+      sanFrancisco: { 
+        lat: 37.7749, 
+        lng: -122.4194, 
+        name: "San Francisco", 
+        date: "2024",
+        description: "The tech hub of Silicon Valley.",
+        timezone: "America/Los_Angeles",
+        photos: [
+          { src: "pictures/sanfrancisco1.jpg", alt: "San Francisco" }
+        ]
+      },
+      newYork: { 
+        lat: 40.7128, 
+        lng: -74.0060, 
+        name: "New York City", 
+        date: "2024",
+        description: "The city that never sleeps.",
+        timezone: "America/New_York",
+        photos: [
+          { src: "pictures/newyork1.jpg", alt: "New York City" }
+        ]
+      },
+      atlanta: { 
+        lat: 33.7490, 
+        lng: -84.3880, 
+        name: "Atlanta", 
+        date: "2024",
+        description: "The capital of Georgia and a major business hub.",
+        timezone: "America/New_York",
+        photos: [
+          { src: "pictures/atlanta1.jpg", alt: "Atlanta" }
+        ]
+      },
+
+      // ===== Europe =====
+      stuttgart: { 
+        lat: 48.7758, 
+        lng: 9.1829, 
+        name: "Stuttgart", 
+        date: "2024",
+        description: "The automotive capital of Germany.",
+        timezone: "Europe/Berlin",
+        photos: [
+          { src: "pictures/stuttgart1.jpg", alt: "Stuttgart" }
+        ]
+      },
+      amsterdam: { 
+        lat: 52.3676, 
+        lng: 4.9041, 
+        name: "Amsterdam", 
+        date: "2024",
+        description: "The capital of the Netherlands.",
+        timezone: "Europe/Amsterdam",
+        photos: [
+          { src: "pictures/amsterdam1.jpg", alt: "Amsterdam" }
+        ]
+      },
+      cologne: { 
+        lat: 50.9375, 
+        lng: 6.9603, 
+        name: "Cologne", 
+        date: "2024",
+        description: "A historic city on the Rhine River.",
+        timezone: "Europe/Berlin",
+        photos: [
+          { src: "pictures/cologne1.jpg", alt: "Cologne" }
+        ]
+      },
+      dusseldorf: { 
+        lat: 51.2277, 
+        lng: 6.7735, 
+        name: "Düsseldorf", 
+        date: "2024",
+        description: "A major business and fashion center.",
+        timezone: "Europe/Berlin",
+        photos: [
+          { src: "pictures/dusseldorf1.jpg", alt: "Düsseldorf" }
+        ]
+      },
+
+      // ===== East Asia =====
+      tokyo: { 
+        lat: 35.6762, 
+        lng: 139.6503, 
+        name: "Tokyo", 
+        date: "2024",
+        description: "Japan's capital and largest city.",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/tokyo1.jpg", alt: "Tokyo" }
+        ]
+      },
+      osaka: { 
+        lat: 34.6937, 
+        lng: 135.5023, 
+        name: "Osaka", 
+        date: "2024",
+        description: "Japan's second-largest city.",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/osaka1.jpg", alt: "Osaka" }
+        ]
+      },
+      taipei: { 
+        lat: 25.0330, 
+        lng: 121.5654, 
+        name: "Taipei", 
+        date: "2024",
+        description: "The capital city of Taiwan.",
+        timezone: "Asia/Taipei",
+        photos: [
+          { src: "pictures/taipei1.jpg", alt: "Taipei" }
+        ]
+      },
+
+      // ===== West Asia =====
+      dubai: { 
+        lat: 25.2048, 
+        lng: 55.2708, 
+        name: "Dubai", 
+        date: "2024",
+        description: "A city of architectural wonders.",
+        timezone: "Asia/Dubai",
+        photos: [
+          { src: "pictures/dubai1.jpg", alt: "Dubai" }
+        ]
+      },
+
+      // ===== Mainland China =====
+      shanghai: { 
+        lat: 31.2304, 
+        lng: 121.4737, 
+        name: "Shanghai", 
+        date: "2024",
+        description: "China's largest city and financial center.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/shanghai1.jpg", alt: "Shanghai" }
+        ]
+      },
+      shenzhen: { 
+        lat: 22.5431, 
+        lng: 114.0579, 
+        name: "Shenzhen", 
+        date: "2024",
+        description: "A major tech and manufacturing hub.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/shenzhen1.jpg", alt: "Shenzhen" }
+        ]
+      },
+      chongqing: { 
+        lat: 29.4316, 
+        lng: 106.9123, 
+        name: "Chongqing", 
+        date: "2024",
+        description: "I like the hotpot there.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/chongqing1.jpg", alt: "Chongqing" }
+        ]
+      },
+
+      // ===== Current Base =====
+      hongKong: { 
+        lat: 22.3193, 
+        lng: 114.1694, 
+        name: "Hong Kong", 
+        date: "Current Base",
+        description: "The vibrant city where I currently live and study, combining modern architecture with rich cultural heritage.",
+        timezone: "Asia/Hong_Kong",
+        photos: [
+          { src: "pictures/hongkong1.jpg", alt: "Hong Kong" }
+        ]
+      }
+    };
+
+    // Function to update city times
+    function updateCityTimes() {
+      Object.entries(cities).forEach(([id, city]) => {
+        const timeElement = document.getElementById(`${id}-time`);
+        if (timeElement) {
+          const time = new Date().toLocaleTimeString('en-US', {
+            timeZone: city.timezone,
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit'
+          });
+          timeElement.textContent = `Current Time: ${time}`;
+        }
+      });
+    }
+
+    // Function to calculate terminator position
+    function calculateTerminator() {
+      const date = new Date();
+      const julianDate = (date.getTime() / 86400000) + 2440587.5;
+      const century = (julianDate - 2451545.0) / 36525;
+      
+      // Calculate solar position
+      const meanLongitude = (280.46646 + century * (36000.76983 + century * 0.0003032)) % 360;
+      const meanAnomaly = 357.52911 + century * (35999.05029 - 0.0001537 * century);
+      const equationCenter = Math.sin(meanAnomaly * Math.PI / 180) * (1.914602 - century * (0.004817 + 0.000014 * century)) +
+        Math.sin(2 * meanAnomaly * Math.PI / 180) * (0.019993 - 0.000101 * century) +
+        Math.sin(3 * meanAnomaly * Math.PI / 180) * 0.000289;
+      const trueLongitude = meanLongitude + equationCenter;
+      const obliquity = 23.439 - 0.00000036 * century;
+      
+      // Calculate declination and right ascension
+      const declination = Math.asin(Math.sin(obliquity * Math.PI / 180) * Math.sin(trueLongitude * Math.PI / 180)) * 180 / Math.PI;
+      const rightAscension = Math.atan2(Math.cos(obliquity * Math.PI / 180) * Math.sin(trueLongitude * Math.PI / 180), Math.cos(trueLongitude * Math.PI / 180)) * 180 / Math.PI;
+      
+      // Calculate sidereal time and hour angle
+      const siderealTime = (100.46061837 + century * (36000.770053608 + century * (0.000387933 - century / 38710000))) % 360;
+      const hourAngle = (siderealTime + date.getUTCHours() * 15 + date.getUTCMinutes() * 0.25 - rightAscension) % 360;
+      const terminatorLng = (hourAngle + 180) % 360 - 180;
+      
+      return {
+        declination: declination,
+        terminatorLng: terminatorLng
+      };
+    }
+
+    function initMap() {
+      if (map) return;
+
+      // Initialize map with custom options
+      map = L.map('Map', {
+        center: [0, 0],
+        zoom: 2,
+        zoomControl: false,
+        scrollWheelZoom: true,
+        minZoom: 1,
+        maxZoom: 18,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5,
+        wheelDebounceTime: 40,
+        wheelPxPerZoomLevel: 60,
+        worldCopyJump: true,
+        maxBounds: null,
+        maxBoundsViscosity: 0
+      });
+
+      // Add day and night tile layers
+      const dayLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB',
+        maxZoom: 19,
+        noWrap: false,
+        continuousWorld: true
+      });
+
+      const nightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB',
+        maxZoom: 19,
+        noWrap: false,
+        continuousWorld: true
+      });
+
+      // Add day layer by default
+      dayLayer.addTo(map);
+
+      // Add zoom control in bottom right with custom styling
+      L.control.zoom({
+        position: 'bottomright',
+        zoomInText: '<i class="fas fa-plus"></i>',
+        zoomOutText: '<i class="fas fa-minus"></i>'
+      }).addTo(map);
+
+      // --- Day/Night Terminator Overlay (Leaflet.Terminator in custom pane) ---
+      map.createPane('terminatorPane');
+      map.getPane('terminatorPane').style.zIndex = 350; // Markers are 400 by default
+      let terminator = L.terminator({ pane: 'terminatorPane' });
+      terminator.addTo(map);
+      setInterval(() => {
+        terminator.setTime();
+        terminator.redraw();
+      }, 60000);
+
+      // --- Add city markers and popups (ensure this runs after terminator) ---
+      Object.entries(cities).forEach(([id, city]) => {
+        const marker = L.circleMarker([city.lat, city.lng], {
+          radius: 8,
+          fillColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim() || '#3498db',
+          color: '#fff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.8
+        }).addTo(map); // Do NOT specify a pane here
+
+        marker.bindPopup(`
+          <div class="map-popup">
+            <h3>${city.name}</h3>
+            <p>Last visited: ${city.date}</p>
+            <div class="city-time">Current Time: ${new Date().toLocaleTimeString('en-US', {
+              timeZone: city.timezone,
+              hour12: true,
+              hour: 'numeric',
+              minute: '2-digit'
+            })}</div>
+          </div>
+        `, {
+          className: 'custom-popup',
+          closeButton: false,
+          offset: [0, -10]
+        });
+
+        // Optional: Add hover effect
+        marker.on('mouseover', function() {
+          this.setStyle({
+            radius: 10,
+            fillOpacity: 1
+          });
+        });
+        marker.on('mouseout', function() {
+          this.setStyle({
+            radius: 8,
+            fillOpacity: 0.8
+          });
+        });
+
+        // Optional: Store marker for later use (e.g., updating popup time)
+        if (!map.markers) map.markers = {};
+        map.markers[id] = marker;
+      });
+      // --- End marker code ---
+
+      // Add double click zoom handler
+      map.on('dblclick', function(e) {
+        const newZoom = Math.min(map.getZoom() + 1, 18);
+        map.flyTo(e.latlng, newZoom, {
+          duration: 0.8,
+          easeLinearity: 0.25
+        });
+      });
+
+      // Add keyboard navigation
+      map.on('keydown', function(e) {
+        if (e.key === '+') {
+          const newZoom = Math.min(map.getZoom() + 1, 18);
+          map.flyTo(map.getCenter(), newZoom, {
+            duration: 0.5,
+            easeLinearity: 0.25
+          });
+        } else if (e.key === '-') {
+          const newZoom = Math.max(map.getZoom() - 1, 2);
+          map.flyTo(map.getCenter(), newZoom, {
+            duration: 0.5,
+            easeLinearity: 0.25
+          });
+        }
+      });
+
+      // Initialize terminator and time updates
+      updateCityTimes();
+      setInterval(updateCityTimes, 1000); // Update times every second
+    }
+
+    // Initialize descriptions and photos when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      Object.entries(cities).forEach(([id, city]) => {
+        // Update description
+        const description = document.querySelector(`#${id} .city-description`);
+        if (description) {
+          description.textContent = city.description;
+        }
+
+        // Update photos
+        const gallery = document.querySelector(`#${id}-gallery`);
+        if (gallery && city.photos) {
+          gallery.innerHTML = city.photos.map(photo => 
+            `<img src="${photo.src}" alt="${photo.alt}">`
+          ).join('');
+        }
+      });
+    });
+
+    // Update showCityInfo function to handle photos
+    function showCityInfo(cityId) {
+      document.querySelectorAll('.city-info').forEach(info => {
+        info.classList.remove('active');
+      });
+
+      const cityInfo = document.getElementById(cityId);
+      if (cityInfo) {
+        // Update description from JavaScript data
+        const description = cityInfo.querySelector('.city-description');
+        if (description && cities[cityId]) {
+          description.textContent = cities[cityId].description;
+        }
+
+        // Update photos from JavaScript data
+        const gallery = cityInfo.querySelector('.city-gallery');
+        if (gallery && cities[cityId].photos) {
+          gallery.innerHTML = cities[cityId].photos.map(photo => 
+            `<img src="${photo.src}" alt="${photo.alt}">`
+          ).join('');
+        }
+        
+        cityInfo.classList.add('active');
+        cityInfo.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Function to update popup times
+    function updatePopupTimes() {
+      Object.entries(cities).forEach(([id, city]) => {
+        const marker = map.markers?.[id];
+        if (marker) {
+          const time = new Date().toLocaleTimeString('en-US', {
+            timeZone: city.timezone,
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit'
+          });
+          marker.setPopupContent(`
+            <div class="map-popup">
+              <h3>${city.name}</h3>
+              <p>Last visited: ${city.date}</p>
+              <div class="city-time">Current Time: ${time}</div>
+            </div>
+          `);
+        }
+      });
+    }
+
+    // Initialize map when tours section is shown
+    document.querySelector('[data-section="tours"]').addEventListener('click', () => {
+      setTimeout(() => {
+        initMap();
+        // Update popup times every minute
+        setInterval(updatePopupTimes, 60000);
+      }, 100);
+    });
+
+    // Add city info sections to the HTML
+    function addCityInfoSections() {
+      const container = document.querySelector('.map-container');
+      Object.entries(cities).forEach(([id, city]) => {
+        if (id !== 'hongKong' && id !== 'dubai') { // Skip existing cities
+          const cityInfo = document.createElement('div');
+          cityInfo.id = id;
+          cityInfo.className = 'city-info';
+          cityInfo.innerHTML = `
+            <div class="city-header">
+              <h3>${city.name}</h3>
+            </div>
+            <div class="city-time" id="${id}-time"></div>
+            <p>${city.description}</p>
+            <div class="city-gallery" id="${id}-gallery"></div>
+          `;
+          container.appendChild(cityInfo);
+        }
+      });
+    }
+
+    // Call this function after the map container is created
+    document.addEventListener('DOMContentLoaded', addCityInfoSections);
   </script>
 </body>
 </html>
