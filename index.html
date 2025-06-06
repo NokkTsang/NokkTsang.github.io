@@ -514,13 +514,14 @@
     }
 
     .city-gallery img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+      width: 100%; /* Make image width adaptive to container */
+      height: auto; /* Maintain aspect ratio */
+      object-fit: cover; /* Cover the area, might crop */
       border-radius: 8px;
       transition: all var(--transition-speed);
       cursor: pointer;
       box-shadow: var(--card-shadow);
+      max-width: 300px; /* Set a maximum width for images in the gallery */
     }
 
     .city-gallery img:hover {
@@ -1151,11 +1152,11 @@
         lat: 34.0522, 
         lng: -118.2437, 
         name: "Los Angeles", 
-        date: "2024",
+        date: "2025.05",
         description: "The entertainment capital of the world.",
         timezone: "America/Los_Angeles",
         photos: [
-          { src: "pictures/losangeles1.jpg", alt: "Los Angeles" }
+          { src: "pictures/losangeles1.jpg", alt: "Night view of LA on Griffith Observatory" } // change alt for caption text
           // Add more photos by adding new objects here
           // { src: "pictures/losangeles2.jpg", alt: "Los Angeles" }
         ]
@@ -1164,33 +1165,33 @@
         lat: 37.7749, 
         lng: -122.4194, 
         name: "San Francisco", 
-        date: "2024",
+        date: "2025.05",
         description: "The tech hub of Silicon Valley.",
         timezone: "America/Los_Angeles",
         photos: [
-          { src: "pictures/sanfrancisco1.jpg", alt: "San Francisco" }
+          { src: "pictures/sanfrancisco1.jpg", alt: "Fog immersed Golden Gate Bridge" }
         ]
       },
       newYork: { 
         lat: 40.7128, 
         lng: -74.0060, 
         name: "New York City", 
-        date: "2024",
+        date: "2025.05",
         description: "The city that never sleeps.",
         timezone: "America/New_York",
         photos: [
-          { src: "pictures/newyork1.jpg", alt: "New York City" }
+          { src: "pictures/newyork1.jpg", alt: "This is Empire State Building, this is Manhattan, this is New York" }
         ]
       },
       atlanta: { 
         lat: 33.7490, 
         lng: -84.3880, 
         name: "Atlanta", 
-        date: "2024",
+        date: "2025.05",
         description: "The capital of Georgia and a major business hub.",
         timezone: "America/New_York",
         photos: [
-          { src: "pictures/atlanta1.jpg", alt: "Atlanta" }
+          { src: "pictures/atlanta1.jpg", alt: "Atlanta Olympic Rings" }
         ]
       },
 
@@ -1199,68 +1200,68 @@
         lat: 48.7758, 
         lng: 9.1829, 
         name: "Stuttgart", 
-        date: "2024",
+        date: "2024.09",
         description: "The automotive capital of Germany.",
         timezone: "Europe/Berlin",
         photos: [
-          { src: "pictures/stuttgart1.jpg", alt: "Stuttgart" }
+          { src: "pictures/stuttgart1.jpg", alt: "I was walking on the street" }
         ]
       },
       amsterdam: { 
         lat: 52.3676, 
         lng: 4.9041, 
         name: "Amsterdam", 
-        date: "2024",
+        date: "2024.09",
         description: "The capital of the Netherlands.",
         timezone: "Europe/Amsterdam",
         photos: [
-          { src: "pictures/amsterdam1.jpg", alt: "Amsterdam" }
+          { src: "pictures/amsterdam1.jpg", alt: "Sunset, vibe was chill" }
         ]
       },
       cologne: { 
         lat: 50.9375, 
         lng: 6.9603, 
         name: "Cologne", 
-        date: "2024",
+        date: "2024.07",
         description: "A historic city on the Rhine River.",
         timezone: "Europe/Berlin",
         photos: [
-          { src: "pictures/cologne1.jpg", alt: "Cologne" }
+          { src: "pictures/cologne1.jpg", alt: "Staring Cologne Cathedral on the balcony of the hotel" }
         ]
       },
       dusseldorf: { 
         lat: 51.2277, 
         lng: 6.7735, 
         name: "Düsseldorf", 
-        date: "2024",
+        date: "2024.02",
         description: "A major business and fashion center.",
         timezone: "Europe/Berlin",
         photos: [
-          { src: "pictures/dusseldorf1.jpg", alt: "Düsseldorf" }
+          { src: "pictures/dusseldorf1.jpg", alt: "Days short nights long" }
         ]
       },
 
       // ===== East Asia =====
-      tokyo: { 
-        lat: 35.6762, 
-        lng: 139.6503, 
-        name: "Tokyo", 
-        date: "2024",
+      tokyo: {
+        lat: 35.6631,
+        lng: 139.8284,
+        name: "Tokyo",
+        date: "2024.12",
         description: "Japan's capital and largest city.",
         timezone: "Asia/Tokyo",
         photos: [
-          { src: "pictures/tokyo1.jpg", alt: "Tokyo" }
+          { src: "pictures/tokyo1.jpg", alt: "Finally saw this tower" }
         ]
       },
-      osaka: { 
-        lat: 34.6937, 
-        lng: 135.5023, 
-        name: "Osaka", 
-        date: "2024",
+      osaka: {
+        lat: 34.6937,
+        lng: 135.5023,
+        name: "Osaka",
+        date: "2024.12",
         description: "Japan's second-largest city.",
         timezone: "Asia/Tokyo",
         photos: [
-          { src: "pictures/osaka1.jpg", alt: "Osaka" }
+          { src: "pictures/osaka1.jpg", alt: "Stone Lion sent by Chinese Government" }
         ]
       },
 
@@ -1269,11 +1270,11 @@
         lat: 25.2048, 
         lng: 55.2708, 
         name: "Dubai", 
-        date: "2024",
+        date: "2024.02",
         description: "A city of architectural wonders.",
         timezone: "Asia/Dubai",
         photos: [
-          { src: "pictures/dubai1.jpg", alt: "Dubai" }
+          { src: "pictures/dubai1.jpg", alt: "Dazzling and impressive in this desert" }
         ]
       },
 
@@ -1282,77 +1283,77 @@
         lat: 31.2304, 
         lng: 121.4737, 
         name: "Shanghai", 
-        date: "2024",
+        date: "2025.03",
         description: "China's largest city and financial center.",
         timezone: "Asia/Shanghai",
         photos: [
-          { src: "pictures/shanghai1.jpg", alt: "Shanghai" }
+          { src: "pictures/shanghai1.jpg", alt: "Best of Lujiazui" }
         ]
       },
       taipei: { 
         lat: 25.0330, 
         lng: 121.5654, 
         name: "Taipei", 
-        date: "2024",
+        date: "2025.01",
         description: "The capital city of Taiwan.",
         timezone: "Asia/Taipei",
         photos: [
-          { src: "pictures/taipei1.jpg", alt: "Taipei" }
+          { src: "pictures/taipei1.jpg", alt: "101" }
         ]
       },
       macau: { 
         lat: 22.1987, 
         lng: 113.5439, 
         name: "Macau", 
-        date: "2024",
+        date: "2023.03",
         description: "Never gambling there before.",
         timezone: "Asia/Macau",
         photos: [
-          { src: "pictures/macau1.jpg", alt: "Macau" }
+          { src: "pictures/macau1.jpg", alt: "You know it" }
         ]
       },
       shenzhen: { 
         lat: 22.5431, 
         lng: 114.0579, 
         name: "Shenzhen", 
-        date: "2024",
+        date: "Go Frequently",
         description: "A major tech and manufacturing hub.",
         timezone: "Asia/Shanghai",
         photos: [
-          { src: "pictures/shenzhen1.jpg", alt: "Shenzhen" }
+          { src: "pictures/shenzhen1.jpg", alt: "Sea World" }
         ]
       },
       chongqing: { 
         lat: 29.4316, 
         lng: 106.9123, 
         name: "Chongqing", 
-        date: "2024",
+        date: "2023.12",
         description: "I like the hotpot there.",
         timezone: "Asia/Shanghai",
         photos: [
-          { src: "pictures/chongqing1.jpg", alt: "Chongqing" }
+          { src: "pictures/chongqing1.jpg", alt: "Even I think Hongya Cave is amazing" }
         ]
       },
       changsha: { 
-        lat: 28.1128, 
+        lat: 28.2128, 
         lng: 112.9822, 
         name: "Changsha", 
-        date: "2024",
+        date: "2025.01",
         description: "My hometown!!!",
         timezone: "Asia/Shanghai",
         photos: [
-          { src: "pictures/changsha1.jpg", alt: "Changsha" }
+          { src: "pictures/changsha1.jpg", alt: "Autumn-Admiring Pavilion" }
         ]
       },
       xiamen: { 
         lat: 24.4798, 
         lng: 118.0822,
         name: "Xiamen", 
-        date: "2024",
+        date: "2023.07",
         description: "Comfortable and beautiful.",
         timezone: "Asia/Shanghai",
         photos: [
-          { src: "pictures/xiamen1.jpg", alt: "Xiamen" }
+          { src: "pictures/xiamen1.jpg", alt: "so relaxing, so chilling" }
         ]
       },
 
@@ -1365,7 +1366,7 @@
         description: "The vibrant city where I currently live and study, combining modern architecture with rich cultural heritage.",
         timezone: "Asia/Hong_Kong",
         photos: [
-          { src: "pictures/hongkong1.jpg", alt: "Hong Kong" }
+          { src: "pictures/hongkong1.jpg", alt: "From the roof of my home" }
         ]
       }
     };
@@ -1536,14 +1537,14 @@
           // Add click listeners to the newly added images
           const images = gallery.querySelectorAll('img');
           images.forEach(img => {
-            img.onclick = function(){
+            img.addEventListener('click', function() {
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
               modal.style.display = "block";
               modalImg.src = this.src;
               captionText.innerHTML = this.alt;
-            }
+            });
           });
         }
         
@@ -1608,25 +1609,28 @@
           // Add click listeners to the newly added images
           const images = gallery.querySelectorAll('img');
           images.forEach(img => {
-            img.onclick = function(){
+            img.addEventListener('click', function() {
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
               modal.style.display = "block";
               modalImg.src = this.src;
               captionText.innerHTML = this.alt;
-            }
+            });
           });
         }
       });
 
-      // Get the modal and close button
+      // Get the modal element
       const modal = document.getElementById("photoModal");
 
       // When the user clicks the modal background, close it
       if (modal) {
         modal.addEventListener('click', function(event) {
-          if (event.target === modal) {
+          // Close modal if the clicked element is the modal itself (the background) or the modal image
+          // Check specifically if the click is on the modal overlay or the image
+          const modalContent = modal.querySelector('.modal-content');
+          if (event.target === modal || event.target === modalContent) {
             modal.style.display = "none";
           }
         });
