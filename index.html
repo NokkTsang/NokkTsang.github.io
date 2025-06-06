@@ -515,7 +515,7 @@
 
     .city-gallery img {
       width: 100%;
-      height: 200px;
+      height: auto;
       object-fit: cover;
       border-radius: 8px;
       transition: all var(--transition-speed);
@@ -592,6 +592,57 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Photo Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 2000; /* Sit on top */
+      padding-top: 60px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%; /* Adjust based on padding-top */
+    }
+
+    #caption {
+      margin: auto;
+      display: block;
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px; /* Give some space for caption */
+    }
+
+    /* Add Animation */
+    .modal-content, #caption {
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+
+    @keyframes zoom {
+      from {transform: scale(0.1)} 
+      to {transform: scale(1)}
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+      .modal-content {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -853,15 +904,6 @@
             <div class="city-gallery" id="osaka-gallery"></div>
           </div>
 
-          <!-- Taipei -->
-          <div id="taipei" class="city-info">
-            <div class="city-header">
-              <h3>Taipei</h3>
-            </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="taipei-gallery"></div>
-          </div>
-
 
           <!-- ===== West Asia ===== -->
 
@@ -875,7 +917,7 @@
           </div>
 
 
-          <!-- ===== Mainland China ===== -->
+          <!-- ===== China ===== -->
 
           <!-- Shanghai -->
           <div id="shanghai" class="city-info">
@@ -895,6 +937,24 @@
             <div class="city-gallery" id="shenzhen-gallery"></div>
           </div>
 
+          <!-- Taipei -->
+          <div id="taipei" class="city-info">
+            <div class="city-header">
+              <h3>Taipei</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="taipei-gallery"></div>
+          </div>
+
+          <!-- Macau -->
+          <div id="macau" class="city-info">
+            <div class="city-header">
+              <h3>Macau</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="macau-gallery"></div>
+          </div>
+
           <!-- Chongqing -->
           <div id="chongqing" class="city-info">
             <div class="city-header">
@@ -902,6 +962,24 @@
             </div>
             <p class="city-description"></p>
             <div class="city-gallery" id="chongqing-gallery"></div>
+          </div>
+
+          <!-- Changsha -->
+          <div id="changsha" class="city-info">
+            <div class="city-header">
+              <h3>Changsha</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="changsha-gallery"></div>
+          </div>
+
+          <!-- Xiamen -->
+          <div id="xiamen" class="city-info">
+            <div class="city-header">
+              <h3>Xiamen</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="xiamen-gallery"></div>
           </div>
 
 
@@ -927,9 +1005,59 @@
   </a>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-terminator"></script>
   <script>
     // Existing scripts...
+
+    // Helper function to copy text to clipboard
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+        return false;
+      }
+    }
+
+    // Helper function to show a temporary notification
+    function showCopyNotification(element, message) {
+      const notification = document.createElement('span');
+      notification.textContent = message;
+      notification.style.cssText = `
+        margin-left: 10px;
+        color: green;
+        font-size: 0.9em;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+      `;
+      element.parentNode.insertBefore(notification, element.nextSibling);
+
+      setTimeout(() => {
+        notification.style.opacity = 0;
+        notification.addEventListener('transitionend', () => notification.remove());
+      }, 2000); // Show for 2 seconds
+    }
+
+    // Function to copy phone number
+    async function copyPhoneNumber() {
+      const phoneLink = document.getElementById('phoneLink');
+      if (!phoneLink) return;
+      const phoneNumber = phoneLink.textContent.replace('Tel: ', '').trim();
+      const success = await copyToClipboard(phoneNumber);
+      if (success) {
+        showCopyNotification(phoneLink, 'Copied!');
+      }
+    }
+
+    // Function to copy email address
+    async function copyEmail(email, linkId) {
+      const emailLink = document.getElementById(linkId);
+      if (!emailLink) return;
+      const success = await copyToClipboard(email);
+      if (success) {
+        showCopyNotification(emailLink, 'Copied!');
+      }
+    }
 
     // Back to Top Button
     const backToTopButton = document.getElementById('backToTop');
@@ -1017,7 +1145,6 @@
 
     // Initialize map when tours section is shown
     let map;
-    let terminatorOverlay;
     const cities = {
       // ===== North America =====
       losAngeles: { 
@@ -1136,17 +1263,6 @@
           { src: "pictures/osaka1.jpg", alt: "Osaka" }
         ]
       },
-      taipei: { 
-        lat: 25.0330, 
-        lng: 121.5654, 
-        name: "Taipei", 
-        date: "2024",
-        description: "The capital city of Taiwan.",
-        timezone: "Asia/Taipei",
-        photos: [
-          { src: "pictures/taipei1.jpg", alt: "Taipei" }
-        ]
-      },
 
       // ===== West Asia =====
       dubai: { 
@@ -1161,7 +1277,7 @@
         ]
       },
 
-      // ===== Mainland China =====
+      // ===== China =====
       shanghai: { 
         lat: 31.2304, 
         lng: 121.4737, 
@@ -1171,6 +1287,28 @@
         timezone: "Asia/Shanghai",
         photos: [
           { src: "pictures/shanghai1.jpg", alt: "Shanghai" }
+        ]
+      },
+      taipei: { 
+        lat: 25.0330, 
+        lng: 121.5654, 
+        name: "Taipei", 
+        date: "2024",
+        description: "The capital city of Taiwan.",
+        timezone: "Asia/Taipei",
+        photos: [
+          { src: "pictures/taipei1.jpg", alt: "Taipei" }
+        ]
+      },
+      macau: { 
+        lat: 22.1987, 
+        lng: 113.5439, 
+        name: "Macau", 
+        date: "2024",
+        description: "Never gambling there before.",
+        timezone: "Asia/Macau",
+        photos: [
+          { src: "pictures/macau1.jpg", alt: "Macau" }
         ]
       },
       shenzhen: { 
@@ -1193,6 +1331,28 @@
         timezone: "Asia/Shanghai",
         photos: [
           { src: "pictures/chongqing1.jpg", alt: "Chongqing" }
+        ]
+      },
+      changsha: { 
+        lat: 28.1128, 
+        lng: 112.9822, 
+        name: "Changsha", 
+        date: "2024",
+        description: "My hometown!!!",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/changsha1.jpg", alt: "Changsha" }
+        ]
+      },
+      xiamen: { 
+        lat: 24.4798, 
+        lng: 118.0822,
+        name: "Xiamen", 
+        date: "2024",
+        description: "Comfortable and beautiful.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/xiamen1.jpg", alt: "Xiamen" }
         ]
       },
 
@@ -1226,36 +1386,6 @@
       });
     }
 
-    // Function to calculate terminator position
-    function calculateTerminator() {
-      const date = new Date();
-      const julianDate = (date.getTime() / 86400000) + 2440587.5;
-      const century = (julianDate - 2451545.0) / 36525;
-      
-      // Calculate solar position
-      const meanLongitude = (280.46646 + century * (36000.76983 + century * 0.0003032)) % 360;
-      const meanAnomaly = 357.52911 + century * (35999.05029 - 0.0001537 * century);
-      const equationCenter = Math.sin(meanAnomaly * Math.PI / 180) * (1.914602 - century * (0.004817 + 0.000014 * century)) +
-        Math.sin(2 * meanAnomaly * Math.PI / 180) * (0.019993 - 0.000101 * century) +
-        Math.sin(3 * meanAnomaly * Math.PI / 180) * 0.000289;
-      const trueLongitude = meanLongitude + equationCenter;
-      const obliquity = 23.439 - 0.00000036 * century;
-      
-      // Calculate declination and right ascension
-      const declination = Math.asin(Math.sin(obliquity * Math.PI / 180) * Math.sin(trueLongitude * Math.PI / 180)) * 180 / Math.PI;
-      const rightAscension = Math.atan2(Math.cos(obliquity * Math.PI / 180) * Math.sin(trueLongitude * Math.PI / 180), Math.cos(trueLongitude * Math.PI / 180)) * 180 / Math.PI;
-      
-      // Calculate sidereal time and hour angle
-      const siderealTime = (100.46061837 + century * (36000.770053608 + century * (0.000387933 - century / 38710000))) % 360;
-      const hourAngle = (siderealTime + date.getUTCHours() * 15 + date.getUTCMinutes() * 0.25 - rightAscension) % 360;
-      const terminatorLng = (hourAngle + 180) % 360 - 180;
-      
-      return {
-        declination: declination,
-        terminatorLng: terminatorLng
-      };
-    }
-
     function initMap() {
       if (map) return;
 
@@ -1276,22 +1406,13 @@
         maxBoundsViscosity: 0
       });
 
-      // Add day and night tile layers
+      // Add your preferred tile layer here (no change)
       const dayLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '©OpenStreetMap, ©CartoDB',
         maxZoom: 19,
         noWrap: false,
         continuousWorld: true
       });
-
-      const nightLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '©OpenStreetMap, ©CartoDB',
-        maxZoom: 19,
-        noWrap: false,
-        continuousWorld: true
-      });
-
-      // Add day layer by default
       dayLayer.addTo(map);
 
       // Add zoom control in bottom right with custom styling
@@ -1300,16 +1421,6 @@
         zoomInText: '<i class="fas fa-plus"></i>',
         zoomOutText: '<i class="fas fa-minus"></i>'
       }).addTo(map);
-
-      // --- Day/Night Terminator Overlay (Leaflet.Terminator in custom pane) ---
-      map.createPane('terminatorPane');
-      map.getPane('terminatorPane').style.zIndex = 350; // Markers are 400 by default
-      let terminator = L.terminator({ pane: 'terminatorPane' });
-      terminator.addTo(map);
-      setInterval(() => {
-        terminator.setTime();
-        terminator.redraw();
-      }, 60000);
 
       // --- Add city markers and popups (ensure this runs after terminator) ---
       Object.entries(cities).forEach(([id, city]) => {
@@ -1356,6 +1467,17 @@
         // Optional: Store marker for later use (e.g., updating popup time)
         if (!map.markers) map.markers = {};
         map.markers[id] = marker;
+
+        // Add click event to show city info section and fly to location
+        marker.on('click', () => {
+          showCityInfo(id);
+          // Optional: Smooth zoom animation on click
+          map.flyTo([city.lat, city.lng], Math.max(map.getZoom(), 10), {
+            duration: 1.5,
+            easeLinearity: 0.25,
+            maxZoom: 18
+          });
+        });
       });
       // --- End marker code ---
 
@@ -1390,26 +1512,7 @@
       setInterval(updateCityTimes, 1000); // Update times every second
     }
 
-    // Initialize descriptions and photos when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      Object.entries(cities).forEach(([id, city]) => {
-        // Update description
-        const description = document.querySelector(`#${id} .city-description`);
-        if (description) {
-          description.textContent = city.description;
-        }
-
-        // Update photos
-        const gallery = document.querySelector(`#${id}-gallery`);
-        if (gallery && city.photos) {
-          gallery.innerHTML = city.photos.map(photo => 
-            `<img src="${photo.src}" alt="${photo.alt}">`
-          ).join('');
-        }
-      });
-    });
-
-    // Update showCityInfo function to handle photos
+    // Update showCityInfo function to handle photos and add click listeners
     function showCityInfo(cityId) {
       document.querySelectorAll('.city-info').forEach(info => {
         info.classList.remove('active');
@@ -1429,6 +1532,19 @@
           gallery.innerHTML = cities[cityId].photos.map(photo => 
             `<img src="${photo.src}" alt="${photo.alt}">`
           ).join('');
+
+          // Add click listeners to the newly added images
+          const images = gallery.querySelectorAll('img');
+          images.forEach(img => {
+            img.onclick = function(){
+              const modal = document.getElementById("photoModal");
+              const modalImg = document.getElementById("modalImage");
+              const captionText = document.getElementById("caption");
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+          });
         }
         
         cityInfo.classList.add('active');
@@ -1470,29 +1586,58 @@
       }, 100);
     });
 
-    // Add city info sections to the HTML
-    function addCityInfoSections() {
-      const container = document.querySelector('.map-container');
-      Object.entries(cities).forEach(([id, city]) => {
-        if (id !== 'hongKong' && id !== 'dubai') { // Skip existing cities
-          const cityInfo = document.createElement('div');
-          cityInfo.id = id;
-          cityInfo.className = 'city-info';
-          cityInfo.innerHTML = `
-            <div class="city-header">
-              <h3>${city.name}</h3>
-            </div>
-            <div class="city-time" id="${id}-time"></div>
-            <p>${city.description}</p>
-            <div class="city-gallery" id="${id}-gallery"></div>
-          `;
-          container.appendChild(cityInfo);
-        }
-      });
-    }
-
     // Call this function after the map container is created
     document.addEventListener('DOMContentLoaded', addCityInfoSections);
+
+    // Initialize descriptions and photos with click listeners when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      Object.entries(cities).forEach(([id, city]) => {
+        // Update description
+        const description = document.querySelector(`#${id} .city-description`);
+        if (description) {
+          description.textContent = city.description;
+        }
+
+        // Update photos
+        const gallery = document.querySelector(`#${id}-gallery`);
+        if (gallery && city.photos) {
+          gallery.innerHTML = city.photos.map(photo => 
+            `<img src="${photo.src}" alt="${photo.alt}">`
+          ).join('');
+
+          // Add click listeners to the newly added images
+          const images = gallery.querySelectorAll('img');
+          images.forEach(img => {
+            img.onclick = function(){
+              const modal = document.getElementById("photoModal");
+              const modalImg = document.getElementById("modalImage");
+              const captionText = document.getElementById("caption");
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+            }
+          });
+        }
+      });
+
+      // Get the modal and close button
+      const modal = document.getElementById("photoModal");
+
+      // When the user clicks the modal background, close it
+      if (modal) {
+        modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      }
+    });
   </script>
+
+  <!-- Photo Modal -->
+  <div id="photoModal" class="modal">
+    <img class="modal-content" id="modalImage">
+    <div id="caption"></div>
+  </div>
 </body>
 </html>
