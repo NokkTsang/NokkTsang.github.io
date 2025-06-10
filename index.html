@@ -63,7 +63,7 @@
       text-align: center; /* Center text */
       overflow-y: auto; /* Scroll if sidebar content is too tall */
       box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-      z-index: 100;
+      z-index: 1000; /* Increased z-index */
     }
 
     .sidebar .logo img {
@@ -321,7 +321,7 @@
       text-decoration: none;
       opacity: 0;
       transition: all var(--transition-speed);
-      z-index: 1000;
+      z-index: 999; /* Adjusted z-index to be below nav but above other content */
       cursor: pointer;
       box-shadow: var(--card-shadow);
     }
@@ -392,7 +392,7 @@
       display: flex;
       gap: 30px;
       box-shadow: var(--card-shadow);
-      z-index: 100;
+      z-index: 1000; /* Increased z-index to match sidebar */
       border-bottom: 1px solid var(--border-color);
     }
 
@@ -460,11 +460,13 @@
       margin-bottom: 25px;
       border: 1px solid var(--border-color);
       box-shadow: var(--card-shadow);
+      z-index: 1; /* Lower z-index for map */
     }
 
     .map-container {
       position: relative;
       overflow: hidden;
+      z-index: 1; /* Lower z-index for map container */
     }
 
     .city-info {
@@ -597,7 +599,7 @@
 
     /* Photo Modal Styles */
     .modal {
-      display: none; /* Hidden by default */
+      display: none !important; /* Hidden by default, force hidden */
       position: fixed; /* Stay in place */
       z-index: 2000; /* Sit on top */
       padding-top: 60px; /* Location of the box */
@@ -608,6 +610,10 @@
       overflow: auto; /* Enable scroll if needed */
       background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    .modal[style*="display: block"] {
+      display: block !important;
     }
 
     .modal-content {
@@ -1531,19 +1537,22 @@
         const gallery = cityInfo.querySelector('.city-gallery');
         if (gallery && cities[cityId].photos) {
           gallery.innerHTML = cities[cityId].photos.map(photo => 
-            `<img src="${photo.src}" alt="${photo.alt}">`
+            `<img src="${photo.src}" alt="${photo.alt}" class="gallery-image">`
           ).join('');
 
           // Add click listeners to the newly added images
-          const images = gallery.querySelectorAll('img');
+          const images = gallery.querySelectorAll('.gallery-image');
           images.forEach(img => {
             img.addEventListener('click', function() {
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
-              modal.style.display = "block";
-              modalImg.src = this.src;
-              captionText.innerHTML = this.alt;
+              if (modal && modalImg && captionText) {
+                console.log('Opening modal');
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+              }
             });
           });
         }
@@ -1603,19 +1612,21 @@
         const gallery = document.querySelector(`#${id}-gallery`);
         if (gallery && city.photos) {
           gallery.innerHTML = city.photos.map(photo => 
-            `<img src="${photo.src}" alt="${photo.alt}">`
+            `<img src="${photo.src}" alt="${photo.alt}" class="gallery-image">`
           ).join('');
 
-          // Add click listeners to the newly added images
-          const images = gallery.querySelectorAll('img');
+          const images = gallery.querySelectorAll('.gallery-image');
           images.forEach(img => {
             img.addEventListener('click', function() {
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
-              modal.style.display = "block";
-              modalImg.src = this.src;
-              captionText.innerHTML = this.alt;
+              if (modal && modalImg && captionText) {
+                console.log('Opening modal');
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+              }
             });
           });
         }
@@ -1623,16 +1634,38 @@
 
       // Get the modal element
       const modal = document.getElementById("photoModal");
+      const modalImg = document.getElementById("modalImage");
+      const caption = document.getElementById("caption");
+      const closeBtn = document.getElementById("closeModalBtn");
 
-      // When the user clicks the modal background, close it
       if (modal) {
+        // Clicking the overlay closes the modal
         modal.addEventListener('click', function(event) {
-          // Close modal if the clicked element is the modal itself (the background) or the modal image
-          // Check specifically if the click is on the modal overlay or the image
-          const modalContent = modal.querySelector('.modal-content');
-          if (event.target === modal || event.target === modalContent) {
+          // Only close if the click is directly on the modal (not on children)
+          if (event.target === modal) {
+            console.log('Overlay clicked, closing modal');
             modal.style.display = "none";
           }
+        });
+      }
+      if (modalImg) {
+        modalImg.addEventListener('click', function(event) {
+          event.stopPropagation();
+        });
+      }
+      if (caption) {
+        caption.addEventListener('click', function(event) {
+          event.stopPropagation();
+        });
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function(event) {
+          console.log('Close button clicked');
+          if (modal) {
+            console.log('Setting modal display to none');
+            modal.style.display = "none";
+          }
+          event.stopPropagation();
         });
       }
     });
@@ -1640,6 +1673,7 @@
 
   <!-- Photo Modal -->
   <div id="photoModal" class="modal">
+    <span id="closeModalBtn" style="position:absolute;top:20px;right:35px;font-size:40px;font-weight:bold;color:#fff;cursor:pointer;z-index:2100;">&times;</span>
     <img class="modal-content" id="modalImage">
     <div id="caption"></div>
   </div>
