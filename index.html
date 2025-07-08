@@ -679,7 +679,7 @@
       <a href="#home" class="nav-link active" data-section="home">Home</a>
       <a href="#publications" class="nav-link" data-section="publications">Publications</a>
       <a href="#cv" class="nav-link" data-section="cv">CV</a>
-      <a href="#tours" class="nav-link" data-section="tours">Tours</a>
+      <a href="#photograph" class="nav-link" data-section="photograph">Photograph</a>
     </nav>
 
     <main class="main-content">
@@ -806,7 +806,7 @@
         </div>
       </section>
 
-      <section id="tours" class="section">
+      <section id="photograph" class="section">
         <div class="section-card">
           <h2>Global Footprint</h2>
           <div class="map-container">
@@ -989,6 +989,14 @@
             <div class="city-gallery" id="xiamen-gallery"></div>
           </div>
 
+          <!-- Chengdu -->
+          <div id="chengdu" class="city-info">
+            <div class="city-header">
+              <h3>Chengdu</h3>
+            </div>
+            <p class="city-description"></p>
+            <div class="city-gallery" id="chengdu-gallery"></div>
+
 
           <!-- ===== Current Base ===== -->
            
@@ -1150,7 +1158,7 @@
       showSection(hash);
     });
 
-    // Initialize map when tours section is shown
+    // Initialize map when photograph section is shown
     let map;
     const cities = {
       // ===== North America =====
@@ -1249,8 +1257,8 @@
 
       // ===== East Asia =====
       tokyo: {
-        lat: 35.6631,
-        lng: 139.8284,
+        lat: 35.6796,
+        lng: 139.7685,
         name: "Tokyo",
         date: "2024.12",
         description: "Japan's capital and largest city.",
@@ -1270,6 +1278,50 @@
           { src: "pictures/osaka1.jpg", alt: "Stone Lion sent by Chinese Government" }
         ]
       },
+      kyoto: {
+        lat: 35.0109,
+        lng: 135.7669,
+        name: "Kyoto",
+        date: "2024.12",
+        description: "xxx",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/kyoto1.jpg", alt: "xxx" } //
+        ]
+      },
+      fuji: {
+        lat: 35.1614,
+        lng: 138.6766,
+        name: "Fuji",
+        date: "2024.12",
+        description: "The iconic symbol of Japan.",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/fuji1.jpg", alt: "xxx" } //
+        ]
+      },
+      kamakura: {
+        lat: 35.3177,
+        lng: 139.5508,
+        name: "Kamakura",
+        date: "2024.12",
+        description: "xxx",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/kamakura1.jpg", alt: "xxx" } //
+        ]
+      },
+      yokohama: {
+        lat: 35.4438,
+        lng: 139.6375,
+        name: "Yokohama",
+        date: "2024.12",
+        description: "xxx",
+        timezone: "Asia/Tokyo",
+        photos: [
+          { src: "pictures/yokohama1.jpg", alt: "xxx" } //
+        ]
+      },
 
       // ===== West Asia =====
       dubai: { 
@@ -1285,9 +1337,10 @@
       },
 
       // ===== China =====
+      // Shanghai Municipality
       shanghai: { 
-        lat: 31.2304, 
-        lng: 121.4737, 
+        lat: 31.23157, 
+        lng: 121.48452, 
         name: "Shanghai", 
         date: "2025.03",
         description: "China's largest city and financial center.",
@@ -1296,9 +1349,22 @@
           { src: "pictures/shanghai1.jpg", alt: "Best of Lujiazui" }
         ]
       },
+      // Beijing Municipality
+      beijing: { 
+        lat: 39.90871, 
+        lng: 116.39748, 
+        name: "Beijing", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/beijing1.jpg", alt: "xxx" } //
+        ]
+      },
+      // Taiwan
       taipei: { 
-        lat: 25.0330, 
-        lng: 121.5654, 
+        lat: 25.03373, 
+        lng: 121.56407, 
         name: "Taipei", 
         date: "2025.01",
         description: "The capital city of Taiwan.",
@@ -1307,20 +1373,33 @@
           { src: "pictures/taipei1.jpg", alt: "101" }
         ]
       },
+      kaohsiung: { 
+        lat: 22.62791, 
+        lng: 120.30123, 
+        name: "Kaohsiung", 
+        date: "2025.01",
+        description: "xxx",
+        timezone: "Asia/Taipei",
+        photos: [
+          { src: "pictures/kaohsiung1.jpg", alt: "xxx" } //
+        ]
+      },
+      // Macau SAR
       macau: { 
-        lat: 22.1987, 
-        lng: 113.5439, 
+        lat: 22.19924, 
+        lng: 113.54281, 
         name: "Macau", 
-        date: "2023.03",
-        description: "Never gambling there before.",
+        date: "2025.07",
+        description: "Won 500 hkd in the casino.",
         timezone: "Asia/Macau",
         photos: [
           { src: "pictures/macau1.jpg", alt: "You know it" }
         ]
       },
+      // Guangdong Province
       shenzhen: { 
-        lat: 22.5431, 
-        lng: 114.0579, 
+        lat: 22.54274, 
+        lng: 114.05869, 
         name: "Shenzhen", 
         date: "Go Frequently",
         description: "A major tech and manufacturing hub.",
@@ -1329,9 +1408,21 @@
           { src: "pictures/shenzhen1.jpg", alt: "Sea World" }
         ]
       },
+      guangzhou: { 
+        lat: 23.10614, 
+        lng: 113.32434, 
+        name: "Guangzhou", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/guangzhou1.jpg", alt: "xxx" } //
+        ]
+      },
+      // Chongqing Municipality
       chongqing: { 
-        lat: 29.4316, 
-        lng: 106.9123, 
+        lat: 29.55669, 
+        lng: 106.57748, 
         name: "Chongqing", 
         date: "2023.12",
         description: "I like the hotpot there.",
@@ -1340,9 +1431,10 @@
           { src: "pictures/chongqing1.jpg", alt: "Even I think Hongya Cave is amazing" }
         ]
       },
+      // Hunan Province
       changsha: { 
-        lat: 28.2128, 
-        lng: 112.9822, 
+        lat: 28.19534, 
+        lng: 112.97728, 
         name: "Changsha", 
         date: "2025.01",
         description: "My hometown!!!",
@@ -1351,9 +1443,43 @@
           { src: "pictures/changsha1.jpg", alt: "Autumn-Admiring Pavilion" }
         ]
       },
+      zhangjiajie: { 
+        lat: 29.11625, 
+        lng: 110.47723, 
+        name: "Zhangjiajie", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/zhangjiajie1.jpg", alt: "xxx" } //
+        ]
+      },
+      yueyang: { 
+        lat: 29.37220, 
+        lng: 113.12252, 
+        name: "Yueyang", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/yueyang1.jpg", alt: "xxx" } //
+        ]
+      },
+      shaoyang: { 
+        lat: 27.23873, 
+        lng: 111.46756, 
+        name: "Shaoyang", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/shaoyang1.jpg", alt: "xxx" } //
+        ]
+      },
+      // Fujian Province
       xiamen: { 
-        lat: 24.4798, 
-        lng: 118.0822,
+        lat: 24.47881, 
+        lng: 118.08863,
         name: "Xiamen", 
         date: "2023.07",
         description: "Comfortable and beautiful.",
@@ -1362,11 +1488,105 @@
           { src: "pictures/xiamen1.jpg", alt: "so relaxing, so chilling" }
         ]
       },
+      // Sichuan Province
+      chengdu: { 
+        lat: 30.65855, 
+        lng: 104.06601, 
+        name: "Chengdu", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/chengdu1.jpg", alt: "xxx" } //
+        ]
+      },
+      // Zhejiang Province
+      hangzhou: { 
+        lat: 30.27248, 
+        lng: 120.15626, 
+        name: "Hangzhou", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/hangzhou1.jpg", alt: "xxx" } //
+        ]
+      },
+      suzhou: { 
+        lat: 31.29864, 
+        lng: 120.58222, 
+        name: "Suzhou", 
+        date: "202x.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/suzhou1.jpg", alt: "xxx" } //
+        ]
+      },
+      //Shannxi Province
+      xian: { 
+        lat: 34.26574, 
+        lng: 108.95414, 
+        name: "Xi'an", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/xian1.jpg", alt: "xxx" } //
+        ]
+      },
+      //Shandong Province
+      qingdao: { 
+        lat: 36.0671, 
+        lng: 120.3826, 
+        name: "Qingdao", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/qingdao1.jpg", alt: "xxx" } //
+        ]
+      },
+      yantai: { 
+        lat: 37.46191, 
+        lng: 121.44703, 
+        name: "Yantai", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/yantai1.jpg", alt: "xxx" } //
+        ]
+      },
+      weihai: { 
+        lat: 37.51341, 
+        lng: 122.12179, 
+        name: "Weihai", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/weihai1.jpg", alt: "xxx" } //
+        ]
+      },
+      taian: {
+        lat: 36.19962, 
+        lng: 117.08926, 
+        name: "Taian", 
+        date: "20xx.xx",
+        description: "xxx",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "pictures/taian1.jpg", alt: "xxx" } //
+        ]
+      },
+
 
       // ===== Current Base =====
+      // Hong Kong SAR
       hongKong: { 
-        lat: 22.3193, 
-        lng: 114.1694, 
+        lat: 22.29481, 
+        lng: 114.17341, 
         name: "Hong Kong", 
         date: "Current Base",
         description: "The vibrant city where I currently live and study, combining modern architecture with rich cultural heritage.",
@@ -1587,8 +1807,8 @@
       });
     }
 
-    // Initialize map when tours section is shown
-    document.querySelector('[data-section="tours"]').addEventListener('click', () => {
+    // Initialize map when photograph section is shown
+    document.querySelector('[data-section="photograph"]').addEventListener('click', () => {
       setTimeout(() => {
         initMap();
         // Update popup times every minute
