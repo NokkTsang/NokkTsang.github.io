@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     :root {
-      --primary-color: #2c3e50; /* Dark Blue/Grey */
-      --secondary-color: #0d3da5bc; /* Bright Blue */
+      --primary-color: #2c3e50;
+      --secondary-color: #0d3da5bc;
       --text-color: #333;
       --light-grey: #f4f6f8; /* Slightly lighter for sidebar background */
       --border-color: #ddd;
@@ -23,6 +23,9 @@
       --transition-speed: 0.4s;
       --card-shadow: 0 2px 4px rgba(0,0,0,0.05);
       --card-shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+
+      --container-max-width: 1400px;
+      --container-padding: 20px;
     }
 
     html {
@@ -41,6 +44,15 @@
       background-color: var(--background-color);
       color: var(--text-color);
       font-size: 16px;
+    }
+
+    .container {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      background-color: var(--white-color);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      min-height: 100vh;
+      position: relative;
     }
 
     .page-wrapper {
@@ -217,6 +229,13 @@
     }
 
     /* --- Responsive Design --- */
+    @media (max-width: 1440px) {
+      .container {
+        max-width: 100%;
+        margin: 0 var(--container-padding);
+      }
+    }
+
     @media (max-width: 992px) { /* Tablet and below - sidebar becomes static top bar */
       .page-wrapper {
         flex-direction: column; /* Stack sidebar (now header) and main content */
@@ -654,523 +673,525 @@
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <aside class="sidebar">
-      <div class="logo">
-        <a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">
-          <img src="pictures/cuhk-logo.PNG" alt="CUHK Logo">
-        </a>
-      </div>
-      <img src="pictures/me_dubai.jpg" alt="Baichuan ZENG" class="profile-photo">
-      <h1>TSANG Baak Cyun(曾百川), Nokk</h1>
-      <div class="contact">
-        <a href="javascript:void(0)" onclick="copyPhoneNumber()" id="phoneLink">Tel: +852-68502154</a>
-        <a href="javascript:void(0)" onclick="copyEmail('baichuan@link.cuhk.edu.hk', 'schoolEmailLink')" id="schoolEmailLink">School: baichuan@link.cuhk.edu.hk</a>
-        <a href="javascript:void(0)" onclick="copyEmail('zbc2385505079@gmail.com', 'privateEmailLink')" id="privateEmailLink">Personal: zbc2385505079@gmail.com</a>
-        <div class="social-links">
-          <a href="https://github.com/NokkTsang" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/nokk-tsang-zbc68502154/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/zzeb_n/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <div class="container">
+    <div class="page-wrapper">
+      <aside class="sidebar">
+        <div class="logo">
+          <a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">
+            <img src="pictures/cuhk-logo.PNG" alt="CUHK Logo">
+          </a>
         </div>
-      </div>
-    </aside>
-
-    <nav class="nav-bar">
-      <a href="#home" class="nav-link active" data-section="home">Home</a>
-      <a href="#publications" class="nav-link" data-section="publications">Publications</a>
-      <a href="#cv" class="nav-link" data-section="cv">CV</a>
-      <a href="#photograph" class="nav-link" data-section="photograph">Photograph</a>
-    </nav>
-
-    <main class="main-content">
-      <section id="home" class="section active">
-        <div class="section-card">
-          <h2>General Introduction</h2>
-          <p>
-            As a penultimate UG student passionate about AI agents and 3D Vision, I am currently involved in two key projects: Machine Learning for Molecular Prediction: training models to predict inhibitors of Tdp1, contributing to drug discovery with members from the Faculty of Medicine of CUHK; Computer Vision for Spatial Understanding: the final year project under <a href="https://www.cse.cuhk.edu.hk/~cwfu/" target="_blank" rel="noopener noreferrer">Prof. Chi-Wing FU, Philip</a>, focusing on mixed reality for surgical navigation and training. I am particularly interested in how intelligent agents can be integrated into the exploration of the physical and digital world.
-          </p>
+        <img src="pictures/me_dubai.jpg" alt="Baichuan ZENG" class="profile-photo">
+        <h1>TSANG Baak Cyun(曾百川), Nokk</h1>
+        <div class="contact">
+          <a href="javascript:void(0)" onclick="copyPhoneNumber()" id="phoneLink">Tel: +852-68502154</a>
+          <a href="javascript:void(0)" onclick="copyEmail('baichuan@link.cuhk.edu.hk', 'schoolEmailLink')" id="schoolEmailLink">School: baichuan@link.cuhk.edu.hk</a>
+          <a href="javascript:void(0)" onclick="copyEmail('zbc2385505079@gmail.com', 'privateEmailLink')" id="privateEmailLink">Personal: zbc2385505079@gmail.com</a>
+          <div class="social-links">
+            <a href="https://github.com/NokkTsang" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/nokk-tsang-zbc68502154/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/zzeb_n/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
         </div>
+      </aside>
 
-        <div class="section-card">
-          <h2>Education</h2>
-          <div class="subsection">
-            <h3><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a>, Hong Kong SAR</h3>
+      <nav class="nav-bar">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#publications" class="nav-link" data-section="publications">Publications</a>
+        <a href="#cv" class="nav-link" data-section="cv">CV</a>
+        <a href="#photograph" class="nav-link" data-section="photograph">Photograph</a>
+      </nav>
+
+      <main class="main-content">
+        <section id="home" class="section active">
+          <div class="section-card">
+            <h2>General Introduction</h2>
             <p>
-              B.Sc. in Computer Science (2022/09–2026/07) [Anticipated]<br/>
-              - Area of interest: AI, ML, Computer Vision, Robotics, Mixed Reality, Embodied Intelligence<br/>
-              - College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a>
+              As a penultimate UG student passionate about AI agents and 3D Vision, I am currently involved in two key projects: Machine Learning for Molecular Prediction: training models to predict inhibitors of Tdp1, contributing to drug discovery with members from the Faculty of Medicine of CUHK; Computer Vision for Spatial Understanding: the final year project under <a href="https://www.cse.cuhk.edu.hk/~cwfu/" target="_blank" rel="noopener noreferrer">Prof. Chi-Wing FU, Philip</a>, focusing on mixed reality for surgical navigation and training. I am particularly interested in how intelligent agents can be integrated into the exploration of the physical and digital world.
             </p>
           </div>
-          <div class="subsection">
-            <h3><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a>, Heidelberg, Germany</h3>
-            <p>International Summer School (2025/08)</p>
-          </div>
-          <div class="subsection">
-            <h3><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a>, Hong Kong SAR</h3>
-            <p>Secondary Education (2018/09–2022/07)</p>
-          </div>
-        </div>
 
-        <div class="section-card">
-          <h2>Academic Achievements</h2>
-          <ul>
-            <li><strong>ELITE Stream Student</strong>, Faculty of Engineering, CUHK (2022/09–2024/12)</li>
-            <li><strong>Best Performance, Individual Winner</strong>, Hong Kong Mathematics Olympiad (2021/07): Full-mark in Paper Two</li>
-            <li><strong>Third Honor Award</strong>, Hong Kong Physics Olympiad (2020/08)</li>
-          </ul>
-        </div>
-
-        <div class="section-card">
-          <h2>Research Experience</h2>
-          <div class="subsection">
-            <h3>Participant, Online Program in Computer Vision in Robotics</h3>
-            <p>
-              - Advised by <a href="https://guangmingw.github.io/" target="_blank" rel="noopener noreferrer">Dr. Guangming Wang</a>, University of Cambridge<br/>
-              - Completed a review paper: <a href="https://arxiv.org/abs/2504.15970" target="_blank" rel="noopener noreferrer">Recent Advances and Future Directions in Extended Reality (XR): Exploring AI-Powered Spatial Intelligence</a> as the project
-            </p>
-          </div>
-          <div class="subsection">
-            <h3>Summer Research, <a href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">Shanghai Jiao Tong University</a> (2023/07–2023/08)</h3>
-            <p>
-              - Advised by <a href="https://soo.sjtu.edu.cn/en/teacher-list/zengzheng.html" target="_blank" rel="noopener noreferrer">Prof. Zheng Zeng</a><br/>
-              - Worked on Morphing Hybrid Aerial-Underwater vehicle<br/>
-              - Conducted outdoor experiments, data analysis, and contributed to paper writing
-            </p>
-          </div>
-        </div>
-
-        <div class="section-card">
-          <h2>Technical Skills</h2>
-          <ul>
-            <li>Programming: C/C++/C#, Java, Python, SQL, HTML, JavaScript</li>
-            <li>Tools: PyTorch, Unity, OpenCV, ROS, Blender</li>
-            <li>Algorithm Design, Database Admin, Project Management, Model Training, Software Development, Technical Writing, 3D Modeling</li>
-          </ul>
-        </div>
-
-        <div class="section-card">
-          <h2>Language Proficiency</h2>
-          <ul>
-            <li>English</li>
-            <li>Mandarin</li>
-            <li>Cantonese</li>
-            <li>German</li>
-          </ul>
-        </div>
-
-        <div class="section-card">
-          <h2>Related Courses</h2>
-          <ul>
-            <li>Data Structures</li>
-            <li>Computer Organization & Design</li>
-            <li>Intro to Operating Systems</li>
-            <li>Intro to Database Systems</li>
-            <li>Design & Analysis of Algorithms</li>
-            <li>Formal Languages & Automata Theory</li>
-            <li>Fundamentals of Machine Learning</li>
-            <li>Software Engineering</li>
-          </ul>
-        </div>
-
-        <div class="section-card">
-          <h2>Extra-Curricular Activities</h2>
-          <ul>
-            <li>Exhibitor, Dental South China International Expo, Guangzhou (2024/03)</li>
-            <li>Member, SHHO College Table Tennis Team (2023/09–Current)</li>
-            <li>Member, SHHO College Basketball Team (2022/07–2024/06)</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="publications" class="section">
-        <div class="section-card">
-          <h2>Publications</h2>
-          <div class="publication-item">
-            <h3>Cognitive UAV Tracking: Leveraging DRL and Hybrid Curriculum Learning for Target Reacquisition</h3>
-            <p>IEEE Transactions on Automation Science and Engineering (TASE)</p>
-            <p>Accepted: June 2025 | <strong>Second Author</strong></p>
-          </div>
-          <div class="publication-item">
-            <h3>Nezha-MB: Design and Implementation of a Morphing Hybrid Aerial-Underwater Vehicle</h3>
-            <p>IEEE International Conference on Robotics and Automation (ICRA 2025)</p>
-            <p>Accepted: January 2025 | <strong>Third Author</strong></p>
-          </div>
-        </div>
-      </section>
-
-      <section id="cv" class="section">
-        <div class="section-card">
-          <h2>Curriculum Vitae</h2>
-          <p>My detailed CV is currently in progress. Please check back later for updates.</p>
-          <a href="#" class="cv-button">Download CV (Coming Soon)</a>
-        </div>
-      </section>
-
-      <section id="photograph" class="section">
-        <div class="section-card">
-          <h2>Global Footprint</h2>
-          <div class="map-container">
-            <div id="Map"></div>
-          </div>
-          
-          <!-- ===== North America ===== -->
-
-          <!-- Los Angeles -->
-          <div id="losAngeles" class="city-info">
-            <div class="city-header">
-              <h3>Los Angeles</h3>
+          <div class="section-card">
+            <h2>Education</h2>
+            <div class="subsection">
+              <h3><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a>, Hong Kong SAR</h3>
+              <p>
+                B.Sc. in Computer Science (2022/09–2026/07) [Anticipated]<br/>
+                - Area of interest: AI, ML, Computer Vision, Robotics, Mixed Reality, Embodied Intelligence<br/>
+                - College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a>
+              </p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="losAngeles-gallery"></div>
-          </div>
-
-          <!-- San Francisco -->
-          <div id="sanFrancisco" class="city-info">
-            <div class="city-header">
-              <h3>San Francisco</h3>
+            <div class="subsection">
+              <h3><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a>, Heidelberg, Germany</h3>
+              <p>International Summer School (2025/08)</p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="sanFrancisco-gallery"></div>
-          </div>
-
-          <!-- New York -->
-          <div id="newYork" class="city-info">
-            <div class="city-header">
-              <h3>New York City</h3>
+            <div class="subsection">
+              <h3><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a>, Hong Kong SAR</h3>
+              <p>Secondary Education (2018/09–2022/07)</p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="newYork-gallery"></div>
           </div>
 
-          <!-- Atlanta -->
-          <div id="atlanta" class="city-info">
-            <div class="city-header">
-              <h3>Atlanta</h3>
+          <div class="section-card">
+            <h2>Academic Achievements</h2>
+            <ul>
+              <li><strong>ELITE Stream Student</strong>, Faculty of Engineering, CUHK (2022/09–2024/12)</li>
+              <li><strong>Best Performance, Individual Winner</strong>, Hong Kong Mathematics Olympiad (2021/07): Full-mark in Paper Two</li>
+              <li><strong>Third Honor Award</strong>, Hong Kong Physics Olympiad (2020/08)</li>
+            </ul>
+          </div>
+
+          <div class="section-card">
+            <h2>Research Experience</h2>
+            <div class="subsection">
+              <h3>Participant, Online Program in Computer Vision in Robotics</h3>
+              <p>
+                - Advised by <a href="https://guangmingw.github.io/" target="_blank" rel="noopener noreferrer">Dr. Guangming Wang</a>, University of Cambridge<br/>
+                - Completed a review paper: <a href="https://arxiv.org/abs/2504.15970" target="_blank" rel="noopener noreferrer">Recent Advances and Future Directions in Extended Reality (XR): Exploring AI-Powered Spatial Intelligence</a> as the project
+              </p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="atlanta-gallery"></div>
-          </div>
-
-
-          <!-- ===== Europe ===== -->
-
-          <!-- Stuttgart -->
-          <div id="stuttgart" class="city-info">
-            <div class="city-header">
-              <h3>Stuttgart</h3>
+            <div class="subsection">
+              <h3>Summer Research, <a href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">Shanghai Jiao Tong University</a> (2023/07–2023/08)</h3>
+              <p>
+                - Advised by <a href="https://soo.sjtu.edu.cn/en/teacher-list/zengzheng.html" target="_blank" rel="noopener noreferrer">Prof. Zheng Zeng</a><br/>
+                - Worked on Morphing Hybrid Aerial-Underwater vehicle<br/>
+                - Conducted outdoor experiments, data analysis, and contributed to paper writing
+              </p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="stuttgart-gallery"></div>
           </div>
 
-          <!-- Amsterdam -->
-          <div id="amsterdam" class="city-info">
-            <div class="city-header">
-              <h3>Amsterdam</h3>
+          <div class="section-card">
+            <h2>Technical Skills</h2>
+            <ul>
+              <li>Programming: C/C++/C#, Java, Python, SQL, HTML, JavaScript</li>
+              <li>Tools: PyTorch, Unity, OpenCV, ROS, Blender</li>
+              <li>Algorithm Design, Database Admin, Project Management, Model Training, Software Development, Technical Writing, 3D Modeling</li>
+            </ul>
+          </div>
+
+          <div class="section-card">
+            <h2>Language Proficiency</h2>
+            <ul>
+              <li>English</li>
+              <li>Mandarin</li>
+              <li>Cantonese</li>
+              <li>German</li>
+            </ul>
+          </div>
+
+          <div class="section-card">
+            <h2>Related Courses</h2>
+            <ul>
+              <li>Data Structures</li>
+              <li>Computer Organization & Design</li>
+              <li>Intro to Operating Systems</li>
+              <li>Intro to Database Systems</li>
+              <li>Design & Analysis of Algorithms</li>
+              <li>Formal Languages & Automata Theory</li>
+              <li>Fundamentals of Machine Learning</li>
+              <li>Software Engineering</li>
+            </ul>
+          </div>
+
+          <div class="section-card">
+            <h2>Extra-Curricular Activities</h2>
+            <ul>
+              <li>Exhibitor, Dental South China International Expo, Guangzhou (2024/03)</li>
+              <li>Member, SHHO College Table Tennis Team (2023/09–Current)</li>
+              <li>Member, SHHO College Basketball Team (2022/07–2024/06)</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="publications" class="section">
+          <div class="section-card">
+            <h2>Publications</h2>
+            <div class="publication-item">
+              <h3>Cognitive UAV Tracking: Leveraging DRL and Hybrid Curriculum Learning for Target Reacquisition</h3>
+              <p>IEEE Transactions on Automation Science and Engineering (TASE)</p>
+              <p>Accepted: June 2025 | <strong>Second Author</strong></p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="amsterdam-gallery"></div>
-          </div>
-
-          <!-- Cologne -->
-          <div id="cologne" class="city-info">
-            <div class="city-header">
-              <h3>Cologne</h3>
+            <div class="publication-item">
+              <h3>Nezha-MB: Design and Implementation of a Morphing Hybrid Aerial-Underwater Vehicle</h3>
+              <p>IEEE International Conference on Robotics and Automation (ICRA 2025)</p>
+              <p>Accepted: January 2025 | <strong>Third Author</strong></p>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="cologne-gallery"></div>
           </div>
+        </section>
 
-          <!-- Düsseldorf -->
-          <div id="dusseldorf" class="city-info">
-            <div class="city-header">
-              <h3>Düsseldorf</h3>
+        <section id="cv" class="section">
+          <div class="section-card">
+            <h2>Curriculum Vitae</h2>
+            <p>My detailed CV is currently in progress. Please check back later for updates.</p>
+            <a href="#" class="cv-button">Download CV (Coming Soon)</a>
+          </div>
+        </section>
+
+        <section id="photograph" class="section">
+          <div class="section-card">
+            <h2>Global Footprint</h2>
+            <div class="map-container">
+              <div id="Map"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="dusseldorf-gallery"></div>
-          </div>
+            
+            <!-- ===== North America ===== -->
 
-
-          <!-- ===== East Asia ===== -->
-
-          <!-- Tokyo -->
-          <div id="tokyo" class="city-info">
-            <div class="city-header">
-              <h3>Tokyo</h3>
+            <!-- Los Angeles -->
+            <div id="losAngeles" class="city-info">
+              <div class="city-header">
+                <h3>Los Angeles</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="losAngeles-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="tokyo-gallery"></div>
-          </div>
 
-          <!-- Osaka -->
-          <div id="osaka" class="city-info">
-            <div class="city-header">
-              <h3>Osaka</h3>
+            <!-- San Francisco -->
+            <div id="sanFrancisco" class="city-info">
+              <div class="city-header">
+                <h3>San Francisco</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="sanFrancisco-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="osaka-gallery"></div>
-          </div>
 
-          <!-- Kyoto -->
-          <div id="kyoto" class="city-info">
-            <div class="city-header">
-              <h3>Kyoto</h3>
+            <!-- New York -->
+            <div id="newYork" class="city-info">
+              <div class="city-header">
+                <h3>New York City</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="newYork-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="kyoto-gallery"></div>
-          </div>
 
-          <!-- Fuji -->
-          <div id="fuji" class="city-info">
-            <div class="city-header">
-              <h3>Fuji</h3>
+            <!-- Atlanta -->
+            <div id="atlanta" class="city-info">
+              <div class="city-header">
+                <h3>Atlanta</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="atlanta-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="fuji-gallery"></div>
-          </div>
 
-          <!-- Kamakura -->
-          <div id="kamakura" class="city-info">
-            <div class="city-header">
-              <h3>Kamakura</h3>
+
+            <!-- ===== Europe ===== -->
+
+            <!-- Stuttgart -->
+            <div id="stuttgart" class="city-info">
+              <div class="city-header">
+                <h3>Stuttgart</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="stuttgart-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="kamakura-gallery"></div>
-          </div>
 
-          <!-- Yokohama -->
-          <div id="yokohama" class="city-info">
-            <div class="city-header">
-              <h3>Yokohama</h3>
+            <!-- Amsterdam -->
+            <div id="amsterdam" class="city-info">
+              <div class="city-header">
+                <h3>Amsterdam</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="amsterdam-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="yokohama-gallery"></div>
-          </div>
 
-          <!-- ===== West Asia ===== -->
-
-          <!-- Dubai -->
-          <div id="dubai" class="city-info">
-            <div class="city-header">
-              <h3>Dubai</h3>
+            <!-- Cologne -->
+            <div id="cologne" class="city-info">
+              <div class="city-header">
+                <h3>Cologne</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="cologne-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="dubai-gallery"></div>
-          </div>
 
-
-          <!-- ===== China ===== -->
-
-          <!-- Shanghai -->
-          <div id="shanghai" class="city-info">
-            <div class="city-header">
-              <h3>Shanghai</h3>
+            <!-- Düsseldorf -->
+            <div id="dusseldorf" class="city-info">
+              <div class="city-header">
+                <h3>Düsseldorf</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="dusseldorf-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="shanghai-gallery"></div>
-          </div>
 
-          <!-- Beijing -->
-          <div id="beijing" class="city-info">
-            <div class="city-header">
-              <h3>Beijing</h3>
+
+            <!-- ===== East Asia ===== -->
+
+            <!-- Tokyo -->
+            <div id="tokyo" class="city-info">
+              <div class="city-header">
+                <h3>Tokyo</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="tokyo-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="beijing-gallery"></div>
-          </div>
 
-          <!-- Taiwan -->
-          <!-- Taipei -->
-          <div id="taipei" class="city-info">
-            <div class="city-header">
-              <h3>Taipei</h3>
+            <!-- Osaka -->
+            <div id="osaka" class="city-info">
+              <div class="city-header">
+                <h3>Osaka</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="osaka-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="taipei-gallery"></div>
-          </div>
 
-          <!-- Kaohsiung -->
-          <div id="kaohsiung" class="city-info">
-            <div class="city-header">
-              <h3>Kaohsiung</h3>
+            <!-- Kyoto -->
+            <div id="kyoto" class="city-info">
+              <div class="city-header">
+                <h3>Kyoto</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="kyoto-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="kaohsiung-gallery"></div>
-          </div>
 
-          <!-- Macau -->
-          <div id="macau" class="city-info">
-            <div class="city-header">
-              <h3>Macau</h3>
+            <!-- Fuji -->
+            <div id="fuji" class="city-info">
+              <div class="city-header">
+                <h3>Fuji</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="fuji-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="macau-gallery"></div>
-          </div>
 
-          <!-- Guangdong Province-->
-          <!-- Shenzhen -->
-          <div id="shenzhen" class="city-info">
-            <div class="city-header">
-              <h3>Shenzhen</h3>
+            <!-- Kamakura -->
+            <div id="kamakura" class="city-info">
+              <div class="city-header">
+                <h3>Kamakura</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="kamakura-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="shenzhen-gallery"></div>
-          </div>
 
-          <!-- Guangzhou -->
-          <div id="guangzhou" class="city-info">
-            <div class="city-header">
-              <h3>Guangzhou</h3>
+            <!-- Yokohama -->
+            <div id="yokohama" class="city-info">
+              <div class="city-header">
+                <h3>Yokohama</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="yokohama-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="guangzhou-gallery"></div>
-          </div>
 
-          <!-- Chongqing -->
-          <div id="chongqing" class="city-info">
-            <div class="city-header">
-              <h3>Chongqing</h3>
+            <!-- ===== West Asia ===== -->
+
+            <!-- Dubai -->
+            <div id="dubai" class="city-info">
+              <div class="city-header">
+                <h3>Dubai</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="dubai-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="chongqing-gallery"></div>
-          </div>
 
-          <!-- Hunan Province-->
-          <!-- Changsha -->
-          <div id="changsha" class="city-info">
-            <div class="city-header">
-              <h3>Changsha</h3>
+
+            <!-- ===== China ===== -->
+
+            <!-- Shanghai -->
+            <div id="shanghai" class="city-info">
+              <div class="city-header">
+                <h3>Shanghai</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="shanghai-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="changsha-gallery"></div>
-          </div>
 
-          <!-- Zhangjiajie -->
-          <div id="zhangjiajie" class="city-info">
-            <div class="city-header">
-              <h3>Zhangjiajie</h3>
+            <!-- Beijing -->
+            <div id="beijing" class="city-info">
+              <div class="city-header">
+                <h3>Beijing</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="beijing-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="zhangjiajie-gallery"></div>
-          </div>
 
-          <!-- Yueyang -->
-          <div id="yueyang" class="city-info">
-            <div class="city-header">
-              <h3>Yueyang</h3>
+            <!-- Taiwan -->
+            <!-- Taipei -->
+            <div id="taipei" class="city-info">
+              <div class="city-header">
+                <h3>Taipei</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="taipei-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="yueyang-gallery"></div>
-          </div>
 
-          <!-- Shaoyang -->
-          <div id="shaoyang" class="city-info">
-            <div class="city-header">
-              <h3>Shaoyang</h3>
+            <!-- Kaohsiung -->
+            <div id="kaohsiung" class="city-info">
+              <div class="city-header">
+                <h3>Kaohsiung</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="kaohsiung-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="shaoyang-gallery"></div>
-          </div>
 
-          <!-- Fujian Province-->
-          <!-- Xiamen -->
-          <div id="xiamen" class="city-info">
-            <div class="city-header">
-              <h3>Xiamen</h3>
+            <!-- Macau -->
+            <div id="macau" class="city-info">
+              <div class="city-header">
+                <h3>Macau</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="macau-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="xiamen-gallery"></div>
-          </div>
 
-          <!-- Sichuan Province-->
-          <!-- Chengdu -->
-          <div id="chengdu" class="city-info">
-            <div class="city-header">
-              <h3>Chengdu</h3>
+            <!-- Guangdong Province-->
+            <!-- Shenzhen -->
+            <div id="shenzhen" class="city-info">
+              <div class="city-header">
+                <h3>Shenzhen</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="shenzhen-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="chengdu-gallery"></div>
-          </div>
 
-          <!-- Zhejiang Province-->
-          <!-- Hangzhou -->
-          <div id="hangzhou" class="city-info">
-            <div class="city-header">
-              <h3>Hangzhou</h3>
+            <!-- Guangzhou -->
+            <div id="guangzhou" class="city-info">
+              <div class="city-header">
+                <h3>Guangzhou</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="guangzhou-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="hangzhou-gallery"></div>
-          </div>
 
-          <!-- Suzhou -->
-          <div id="suzhou" class="city-info">
-            <div class="city-header">
-              <h3>Suzhou</h3>
+            <!-- Chongqing -->
+            <div id="chongqing" class="city-info">
+              <div class="city-header">
+                <h3>Chongqing</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="chongqing-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="suzhou-gallery"></div>
-          </div>
 
-          <!-- Shaanxi Province-->
-          <!-- Xi'an -->
-          <div id="xian" class="city-info">
-            <div class="city-header">
-              <h3>Xi'an</h3>
+            <!-- Hunan Province-->
+            <!-- Changsha -->
+            <div id="changsha" class="city-info">
+              <div class="city-header">
+                <h3>Changsha</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="changsha-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="xian-gallery"></div>
-          </div>
 
-          <!-- Shandong Province-->
-          <!-- Qingdao -->
-          <div id="qingdao" class="city-info">
-            <div class="city-header">
-              <h3>Qingdao</h3>
+            <!-- Zhangjiajie -->
+            <div id="zhangjiajie" class="city-info">
+              <div class="city-header">
+                <h3>Zhangjiajie</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="zhangjiajie-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="qingdao-gallery"></div>
-          </div>
 
-          <!-- Yantai -->
-          <div id="yantai" class="city-info">
-            <div class="city-header">
-              <h3>Yantai</h3>
+            <!-- Yueyang -->
+            <div id="yueyang" class="city-info">
+              <div class="city-header">
+                <h3>Yueyang</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="yueyang-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="yantai-gallery"></div>
-          </div>
 
-          <!-- Weihai -->
-          <div id="weihai" class="city-info">
-            <div class="city-header">
-              <h3>Weihai</h3>
+            <!-- Shaoyang -->
+            <div id="shaoyang" class="city-info">
+              <div class="city-header">
+                <h3>Shaoyang</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="shaoyang-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="weihai-gallery"></div>
-          </div>
 
-          <!-- Taian -->
-          <div id="taian" class="city-info">
-            <div class="city-header">
-              <h3>Taian</h3>
+            <!-- Fujian Province-->
+            <!-- Xiamen -->
+            <div id="xiamen" class="city-info">
+              <div class="city-header">
+                <h3>Xiamen</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="xiamen-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="taian-gallery"></div>
-          </div>
 
-          <!-- ===== Current Base ===== -->
-          <!-- Hong Kong -->
-          <div id="hongKong" class="city-info">
-            <div class="city-header">
-              <h3>Hong Kong</h3>
+            <!-- Sichuan Province-->
+            <!-- Chengdu -->
+            <div id="chengdu" class="city-info">
+              <div class="city-header">
+                <h3>Chengdu</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="chengdu-gallery"></div>
             </div>
-            <p class="city-description"></p>
-            <div class="city-gallery" id="hongKong-gallery"></div>
-          </div>
 
-        </div>
-      </section>
-    </main>
+            <!-- Zhejiang Province-->
+            <!-- Hangzhou -->
+            <div id="hangzhou" class="city-info">
+              <div class="city-header">
+                <h3>Hangzhou</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="hangzhou-gallery"></div>
+            </div>
+
+            <!-- Suzhou -->
+            <div id="suzhou" class="city-info">
+              <div class="city-header">
+                <h3>Suzhou</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="suzhou-gallery"></div>
+            </div>
+
+            <!-- Shaanxi Province-->
+            <!-- Xi'an -->
+            <div id="xian" class="city-info">
+              <div class="city-header">
+                <h3>Xi'an</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="xian-gallery"></div>
+            </div>
+
+            <!-- Shandong Province-->
+            <!-- Qingdao -->
+            <div id="qingdao" class="city-info">
+              <div class="city-header">
+                <h3>Qingdao</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="qingdao-gallery"></div>
+            </div>
+
+            <!-- Yantai -->
+            <div id="yantai" class="city-info">
+              <div class="city-header">
+                <h3>Yantai</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="yantai-gallery"></div>
+            </div>
+
+            <!-- Weihai -->
+            <div id="weihai" class="city-info">
+              <div class="city-header">
+                <h3>Weihai</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="weihai-gallery"></div>
+            </div>
+
+            <!-- Taian -->
+            <div id="taian" class="city-info">
+              <div class="city-header">
+                <h3>Taian</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="taian-gallery"></div>
+            </div>
+
+            <!-- ===== Current Base ===== -->
+            <!-- Hong Kong -->
+            <div id="hongKong" class="city-info">
+              <div class="city-header">
+                <h3>Hong Kong</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="hongKong-gallery"></div>
+            </div>
+
+          </div>
+        </section>
+      </main>
+    </div>
   </div>
 
   <a href="#" class="back-to-top" id="backToTop">
