@@ -7,26 +7,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="//unpkg.com/globe.gl"></script>
   <style>
     :root {
-      /* Professional Academic Color Scheme */
-      --primary-color: #2c3e50;
-      --secondary-color: #34495e;
-      --accent-color: #7f8c8d;
-      --text-primary: #2c3e50;
-      --text-secondary: #34495e;
-      --text-muted: #7f8c8d;
+      --primary-color: #1a365d;
+      --secondary-color: #1e40af;
+      --accent-color: #64748b;
+      --text-primary: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
       --background-primary: #ffffff;
-      --background-secondary: #f8f9fa;
-      --background-tertiary: #ecf0f1;
-      --border-color: #e9ecef;
-      --hover-bg: #f8f9fa;
-      --success-color: #27ae60;
-      --warning-color: #f39c12;
+      --background-secondary: #f8fafc;
+      --background-tertiary: #f1f5f9;
+      --border-color: #e2e8f0;
+      --hover-bg: #f8fafc;
+      --success-color: #059669;
+      --warning-color: #d97706;
       
       /* Layout Variables */
-      --container-max-width: 1400px;
-      --sidebar-width: 300px;
+      --container-max-width: 1100px;
+      --sidebar-width: 280px;
       --content-padding: 2rem;
       --nav-height: 64px;
       --border-radius: 0px;
@@ -94,10 +94,16 @@
       top: 0;
       height: 100vh;
       overflow-y: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .sidebar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     }
 
     .sidebar .logo {
-      margin-bottom: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
       transition: transform var(--transition-speed);
     }
 
@@ -106,7 +112,7 @@
     }
 
     .sidebar .logo img {
-      max-width: 120px;
+      max-width: 160px;
       height: auto;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
@@ -118,7 +124,7 @@
       object-fit: cover;
       border: 3px solid var(--background-primary);
       box-shadow: var(--shadow-lg);
-      margin-bottom: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
       transition: all var(--transition-speed);
     }
 
@@ -129,18 +135,20 @@
 
     .sidebar h1 {
       font-family: 'Inter', sans-serif;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 600;
       color: var(--primary-color);
+      margin-top: var(--spacing-xs);
       margin-bottom: var(--spacing-md);
       line-height: 1.3;
       letter-spacing: -0.025em;
     }
 
     .sidebar .contact {
-      font-size: 14px;
+      font-size: 12px;
       color: var(--text-secondary);
-      margin-bottom: var(--spacing-lg);
+      margin-top: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
       line-height: 1.5;
       width: 100%;
     }
@@ -150,9 +158,9 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: var(--spacing-sm);
-      margin-bottom: var(--spacing-sm);
-      padding: var(--spacing-sm) var(--spacing-md);
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-xs);
+      padding: var(--spacing-xs) var(--spacing-sm);
       border-radius: var(--border-radius);
       transition: all var(--transition-speed);
       font-weight: 500;
@@ -160,8 +168,9 @@
 
     .sidebar .contact a i {
       flex-shrink: 0;
-      width: 16px;
+      width: 14px;
       text-align: center;
+      font-size: 12px;
     }
 
     .sidebar .contact a:hover {
@@ -171,9 +180,9 @@
     }
 
     .social-links {
-      margin-top: var(--spacing-lg);
+      margin-top: var(--spacing-sm);
       display: flex;
-      gap: var(--spacing-md);
+      gap: var(--spacing-sm);
       justify-content: center;
     }
 
@@ -181,15 +190,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       color: var(--text-secondary);
       background-color: var(--background-primary);
       border: 2px solid var(--border-color);
       border-radius: var(--border-radius);
       text-decoration: none;
       transition: all var(--transition-speed);
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .social-links a:hover {
@@ -259,6 +268,7 @@
       max-width: 100%;
       line-height: 1.5;
       font-size: 0.95rem;
+      text-align: justify;
     }
 
     .section-item {
@@ -314,6 +324,7 @@
       line-height: 1.5;
       color: var(--text-secondary);
       font-size: 0.95rem;
+      text-align: justify;
     }
 
     /* Professional Lists */
@@ -330,6 +341,7 @@
       line-height: 1.5;
       color: var(--text-secondary);
       font-size: 0.95rem;
+      text-align: justify;
     }
 
     li::before {
@@ -587,75 +599,268 @@
 
     /* Map Styles */
     #Map {
-      height: 500px;
+      height: 600px;
       width: 100%;
-      margin-bottom: var(--spacing-xl);
-      border: 1px solid var(--border-color);
+      max-width: 700px;
+      margin: 0 auto var(--spacing-xl) auto;
+      border-radius: 8px;
+      overflow: visible;
       z-index: 1;
+      background: transparent;
+      position: relative;
+    }
+
+    #Map.map-2d {
+      overflow: hidden;
+    }
+
+    #Map.map-3d {
+      overflow: visible;
+    }
+
+    /* Map Toggle Button */
+    .map-toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10000;
+      background: white;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: auto;
+    }
+
+    .map-toggle-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .map-toggle-btn i {
+      font-size: 16px;
     }
 
     .map-container {
       position: relative;
       overflow: hidden;
       z-index: 1;
+      border-radius: 8px;
+    }
+
+    /* Map Popup Styles */
+    .map-popup h3 {
+      margin: 0 0 8px 0;
+      color: var(--primary-color);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .map-popup p {
+      margin: 4px 0;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* Custom Leaflet Marker Styles */
+    .custom-marker {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .leaflet-popup-content {
+      margin: 12px;
+      font-family: 'Source Sans Pro', sans-serif;
     }
 
     .city-info {
-      padding: var(--spacing-xl);
+      padding: 0;
       background: var(--background-primary);
-      margin-top: var(--spacing-xl);
+      margin-top: var(--spacing-2xl);
       display: none;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
     }
 
     .city-info.active {
       display: block;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .city-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: var(--spacing-lg);
-      padding-bottom: var(--spacing-md);
-      border-bottom: 1px solid var(--border-color);
+      padding: var(--spacing-xl) var(--spacing-2xl);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      margin-bottom: 0;
+      border-bottom: none;
     }
 
     .city-header h3 {
       margin: 0;
-      color: var(--primary-color);
-      font-size: 24px;
-      font-weight: 600;
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .city-date {
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.95);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .city-description {
+      padding: var(--spacing-xl) var(--spacing-2xl);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-secondary);
       background: var(--background-secondary);
-      padding: var(--spacing-xs) var(--spacing-md);
+      border-left: 4px solid var(--primary-color);
+      margin: 0;
+      font-style: italic;
+    }
+
+    .gallery-header {
+      padding: var(--spacing-lg) var(--spacing-2xl) 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .gallery-title i {
+      font-size: 16px;
+    }
+
+    .photo-count {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--background-secondary);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 500;
     }
 
     .city-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-lg);
-      margin-top: var(--spacing-lg);
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--spacing-xl);
+      padding: var(--spacing-xl) var(--spacing-2xl) var(--spacing-2xl);
+      background: var(--background-primary);
     }
 
-    .city-gallery img {
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--background-secondary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+    }
+
+    .gallery-item img {
       width: 100%;
       height: auto;
-      object-fit: contain;
-      cursor: pointer;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-      transition: transform var(--transition-speed);
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .city-gallery img:hover {
-      transform: scale(1.03);
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(26, 54, 93, 0.95) 0%, rgba(26, 54, 93, 0.7) 50%, transparent 100%);
+      color: white;
+      padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-md);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      transform: translateY(0);
+    }
+
+    .gallery-item-caption {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .gallery-item-icon {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-left: var(--spacing-sm);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .city-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-lg);
+      }
+      
+      .gallery-item-overlay {
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(26, 54, 93, 0.85) 0%, transparent 100%);
+      }
     }
 
     /* Photo Modal */
@@ -729,16 +934,17 @@
 
 a {
   color: var(--text-secondary);
-  text-decoration: underline;
+  text-decoration: none;
   font-weight: 500;
-  text-decoration-color: var(--text-muted);
-  text-underline-offset: 2px;
-  text-decoration-thickness: 1px;
+  transition: all var(--transition-speed);
 }
 
 a:hover, a:focus {
   color: var(--primary-color);
+  text-decoration: underline;
   text-decoration-color: var(--primary-color);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
 }
 
 .section-item {
@@ -795,7 +1001,7 @@ h3 {
         </a>
       </div>
       <img src="media/me_bmw-museum.jpg" alt="Baichuan ZENG" class="profile-photo">
-      <h1>TSANG Pak Chuen<br>(曾百川), Nokk</h1>
+      <h1 id="nameDisplay" onclick="cycleName()" style="cursor: pointer;">Baichuan ZENG, Nokk</h1>
       <div class="contact">
         <a href="javascript:void(0)" onclick="copyPhoneNumber()" id="phoneLink">
           <i class="fas fa-phone"></i> +852-68502154
@@ -866,7 +1072,7 @@ h3 {
                 <div class="info-item">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a></h4>
-                  <p style="margin: 0;"><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
+                  <p style="margin: 0; cursor: pointer;" onclick="showCityInGallery('hongKong')"><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
                   </div>
                   <p><strong>B.Sc. in Computer Science</strong></p>
                   <div class="meta">Sep 2022 – Jul 2026 (Anticipated)</div>
@@ -876,7 +1082,7 @@ h3 {
                 <div class="info-item" style="margin-top: var(--spacing-lg);">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a></h4>
-                  <p><i class="fas fa-map-marker-alt"></i> Heidelberg, Germany</p>
+                  <p style="cursor: pointer;" onclick="showCityInGallery('heidelberg')"><i class="fas fa-map-marker-alt"></i> Heidelberg, Germany</p>
                   </div>
                   <p><strong>International Summer School</strong></p>
                   <div class="meta">Jul 2025 - Aug 2025</div>
@@ -885,7 +1091,7 @@ h3 {
                 <div class="info-item" style="margin-top: var(--spacing-lg);">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a></h4>
-                  <p><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
+                  <p style="cursor: pointer;" onclick="showCityInGallery('hongKong')"><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
                   </div>
                   <p><strong>Secondary Education</strong></p>
                   <div class="meta">Sep 2018 – Jul 2022</div>
@@ -1094,7 +1300,7 @@ h3 {
           <div class="section-content">
             <h2>Global Footprint</h2>
             <div class="map-container">
-              <div id="Map"></div>
+              <div id="Map" class="map-3d"></div>
             </div>
             
             <!-- ===== North America ===== -->
@@ -1571,6 +1777,46 @@ h3 {
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    // Name cycling functionality
+    let nameIndex = 0;
+    const names = [
+      'Baichuan ZENG, Nokk',
+      'TSANG Pak Chuen',
+      '曾百川'
+    ];
+
+    function cycleName() {
+      const nameDisplay = document.getElementById('nameDisplay');
+      nameIndex = (nameIndex + 1) % names.length;
+      nameDisplay.textContent = names[nameIndex];
+    }
+
+    // Function to show city in Gallery page
+    function showCityInGallery(cityId) {
+      // Switch to Gallery page
+      const galleryLink = document.querySelector('a[data-section="photograph"]');
+      if (galleryLink) {
+        galleryLink.click();
+      }
+      
+      // Wait a bit for the page to switch, then show the city
+      setTimeout(() => {
+        const cityElement = document.getElementById(cityId);
+        if (cityElement) {
+          // Hide all city info first
+          document.querySelectorAll('.city-info').forEach(info => {
+            info.classList.remove('active');
+          });
+          
+          // Show the target city
+          cityElement.classList.add('active');
+          
+          // Scroll to the city
+          cityElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+
     // Existing scripts...
 
     // Helper function to copy text to clipboard
@@ -2327,127 +2573,299 @@ h3 {
     function initMap() {
       if (map) return;
 
-      // Initialize map with custom options
-      map = L.map('Map', {
-        center: [0, 0],
-        zoom: 2,
-        zoomControl: false,
-        scrollWheelZoom: true,
-        minZoom: 1,
-        maxZoom: 18,
-        zoomSnap: 0.5,
-        zoomDelta: 0.5,
-        wheelDebounceTime: 40,
-        wheelPxPerZoomLevel: 60,
-        worldCopyJump: true,
-        maxBounds: null,
-        maxBoundsViscosity: 0
-      });
+      const container = document.getElementById('Map');
+      if (!container) return;
 
+      // Initialize 3D Globe
+      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#1a365d';
       
-      const dayLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '©OpenStreetMap, ©CartoDB',
-        maxZoom: 19,
-        noWrap: false,
-        continuousWorld: true
+      // Convert cities to points data first
+      const pointsData = Object.entries(cities).map(([id, city]) => ({
+        id: id,
+        lat: city.lat,
+        lng: city.lng,
+        color: primaryColor,
+        name: city.name,
+        date: city.date,
+        timezone: city.timezone
+      }));
+
+      console.log('Cities data:', pointsData); // Debug
+
+      map = Globe()(container)
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
+        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+        .backgroundColor('rgba(0,0,0,0)')
+        .width(Math.min(container.offsetWidth, 700))
+        .height(600)
+        .pointOfView({ lat: 30, lng: 0, altitude: 2.5 })
+        .showAtmosphere(true)
+        .atmosphereColor('#6495ED')
+        .atmosphereAltitude(0.15)
+        .htmlElementsData(pointsData)
+        .htmlLat('lat')
+        .htmlLng('lng')
+        .htmlAltitude(0)
+        .htmlElement(d => {
+          const el = document.createElement('div');
+          el.style.cssText = `
+            position: relative;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            pointer-events: auto;
+            transform: translate(-50%, -100%);
+          `;
+          
+          const pin = document.createElement('div');
+          pin.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, ${primaryColor} 0%, #2563eb 100%);
+            border: 2.5px solid white;
+            border-radius: 50% 50% 50% 0;
+            transform: translateX(-50%) rotate(-45deg);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(26,54,93,0.15);
+            transition: all 0.3s ease;
+          `;
+          
+          el.appendChild(pin);
+          
+          // Hover effect
+          el.addEventListener('mouseenter', () => {
+            pin.style.transform = 'translateX(-50%) rotate(-45deg) scale(1.25)';
+            pin.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5), 0 0 0 2px rgba(26,54,93,0.25)';
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            pin.style.transform = 'translateX(-50%) rotate(-45deg) scale(1)';
+            pin.style.boxShadow = '0 2px 6px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(26,54,93,0.15)';
+          });
+          
+          // Click event
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            console.log('Pin clicked:', d.name);
+            showCityInfo(d.id);
+            map.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 1000);
+          });
+          
+          // Tooltip
+          el.title = `${d.name}\nLast visited: ${d.date}\nClick to view photos`;
+          
+          return el;
+        });
+
+      console.log('Pin markers configuration complete, marker count:', pointsData.length);
+
+      // Add toggle button after globe is created
+      let toggleBtn = container.querySelector('.map-toggle-btn');
+      if (!toggleBtn) {
+        toggleBtn = document.createElement('button');
+        toggleBtn.className = 'map-toggle-btn';
+        toggleBtn.onclick = toggleMapMode;
+        toggleBtn.innerHTML = '<i class="fas fa-globe"></i><span id="mapModeText">Switch to 2D</span>';
+        container.appendChild(toggleBtn);
+      }
+
+      // Add auto-rotation
+      map.controls().autoRotate = true;
+      map.controls().autoRotateSpeed = 0.3;
+      map.controls().enableZoom = true;
+      map.controls().minDistance = 260;
+      map.controls().maxDistance = 500;
+
+      // Pause rotation on interaction
+      map.controls().addEventListener('start', () => {
+        map.controls().autoRotate = false;
       });
-      dayLayer.addTo(map);
 
-      // Add zoom control in bottom right with custom styling
-      L.control.zoom({
-        position: 'bottomright',
-        zoomInText: '<i class="fas fa-plus"></i>',
-        zoomOutText: '<i class="fas fa-minus"></i>'
-      }).addTo(map);
-
-      // --- Add city markers and popups (ensure this runs after terminator) ---
-      Object.entries(cities).forEach(([id, city]) => {
-        const marker = L.circleMarker([city.lat, city.lng], {
-          radius: 8,
-          fillColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-color').trim() || '#3498db',
-          color: '#fff',
-          weight: 2,
-          opacity: 1,
-          fillOpacity: 0.8
-        }).addTo(map); // Do NOT specify a pane here
-
-        marker.bindPopup(`
-          <div class="map-popup">
-            <h3>${city.name}</h3>
-            <p>Last visited: ${city.date}</p>
-            <div class="city-time">Current Time: ${new Date().toLocaleTimeString('en-US', {
-              timeZone: city.timezone,
-              hour12: true,
-              hour: 'numeric',
-              minute: '2-digit'
-            })}</div>
-          </div>
-        `, {
-          className: 'custom-popup',
-          closeButton: false,
-          offset: [0, -10]
-        });
-
-        // Optional: Add hover effect
-        marker.on('mouseover', function() {
-          this.setStyle({
-            radius: 10,
-            fillOpacity: 1
-          });
-        });
-        marker.on('mouseout', function() {
-          this.setStyle({
-            radius: 8,
-            fillOpacity: 0.8
-          });
-        });
-
-        // Optional: Store marker for later use (e.g., updating popup time)
-        if (!map.markers) map.markers = {};
-        map.markers[id] = marker;
-
-        // Add click event to show city info section and fly to location
-        marker.on('click', () => {
-          showCityInfo(id);
-          // Optional: Smooth zoom animation on click
-          map.flyTo([city.lat, city.lng], Math.max(map.getZoom(), 10), {
-            duration: 1.5,
-            easeLinearity: 0.25,
-            maxZoom: 18
-          });
-        });
-      });
-      // --- End marker code ---
-
-      // Add double click zoom handler
-      map.on('dblclick', function(e) {
-        const newZoom = Math.min(map.getZoom() + 1, 18);
-        map.flyTo(e.latlng, newZoom, {
-          duration: 0.8,
-          easeLinearity: 0.25
-        });
+      // Resume rotation after 3 seconds of inactivity
+      let rotationTimeout;
+      map.controls().addEventListener('end', () => {
+        clearTimeout(rotationTimeout);
+        rotationTimeout = setTimeout(() => {
+          map.controls().autoRotate = true;
+        }, 3000);
       });
 
-      // Add keyboard navigation
-      map.on('keydown', function(e) {
-        if (e.key === '+') {
-          const newZoom = Math.min(map.getZoom() + 1, 18);
-          map.flyTo(map.getCenter(), newZoom, {
-            duration: 0.5,
-            easeLinearity: 0.25
-          });
-        } else if (e.key === '-') {
-          const newZoom = Math.max(map.getZoom() - 1, 2);
-          map.flyTo(map.getCenter(), newZoom, {
-            duration: 0.5,
-            easeLinearity: 0.25
-          });
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        if (map && container) {
+          map.width(Math.min(container.offsetWidth, 700));
         }
       });
+    }
 
-      // Initialize terminator and time updates
-      updateCityTimes();
-      setInterval(updateCityTimes, 1000); // Update times every second
+    // 2D Map initialization
+    let map2D = null;
+    let map2DMarkers = [];
+    
+    function init2DMap() {
+      const container = document.getElementById('Map');
+      if (!container || map2D) return;
+
+      // Clear container but keep toggle button
+      const existingBtn = container.querySelector('.map-toggle-btn');
+      container.innerHTML = '';
+      
+      // Re-add toggle button
+      const toggleBtn = document.createElement('button');
+      toggleBtn.className = 'map-toggle-btn';
+      toggleBtn.onclick = toggleMapMode;
+      toggleBtn.innerHTML = '<i class="fas fa-cube"></i><span id="mapModeText">Switch to 3D</span>';
+      container.appendChild(toggleBtn);
+
+      // Initialize Leaflet map
+      map2D = L.map(container, {
+        center: [30, 0],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 18,
+        zoomControl: true,
+        maxBounds: [[-90, -180], [90, 180]],
+        maxBoundsViscosity: 1.0
+      });
+
+      // Add tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+        noWrap: true
+      }).addTo(map2D);
+
+      // Custom marker icon - simplified for accurate positioning
+      const customIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="
+          width: 18px;
+          height: 18px;
+          background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+          border: 2.5px solid white;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(26,54,93,0.15);
+        "></div>`,
+        iconSize: [18, 18],
+        iconAnchor: [9, 18]
+      });
+
+      // Add markers for all cities
+      map2DMarkers = [];
+      Object.entries(cities).forEach(([id, city]) => {
+        const marker = L.marker([city.lat, city.lng], { 
+          icon: customIcon,
+          title: `${city.name}\nLast visited: ${city.date}\nClick to view photos`
+        }).addTo(map2D);
+        
+        // Create popup content with current time
+        const getPopupContent = () => {
+          const currentTime = new Date().toLocaleTimeString('en-US', {
+            timeZone: city.timezone,
+            hour12: true,
+            hour: 'numeric',
+            minute: '2-digit'
+          });
+          return `
+            <div class="map-popup">
+              <h3>${city.name}</h3>
+              <p>Last visited: ${city.date}</p>
+              <p id="popup-time-${id}">Current Time: ${currentTime}</p>
+            </div>
+          `;
+        };
+        
+        // Bind popup
+        marker.bindPopup(getPopupContent(), {
+          maxWidth: 250,
+          className: 'custom-popup'
+        });
+        
+        // Update time when popup opens
+        marker.on('popupopen', () => {
+          const updatePopupTime = () => {
+            const timeElement = document.getElementById(`popup-time-${id}`);
+            if (timeElement) {
+              const currentTime = new Date().toLocaleTimeString('en-US', {
+                timeZone: city.timezone,
+                hour12: true,
+                hour: 'numeric',
+                minute: '2-digit'
+              });
+              timeElement.textContent = `Current Time: ${currentTime}`;
+            }
+          };
+          // Update immediately and then every second
+          updatePopupTime();
+          marker._popupTimeInterval = setInterval(updatePopupTime, 1000);
+        });
+        
+        // Clear interval when popup closes
+        marker.on('popupclose', () => {
+          if (marker._popupTimeInterval) {
+            clearInterval(marker._popupTimeInterval);
+            marker._popupTimeInterval = null;
+          }
+        });
+        
+        // Also show city info below map on click
+        marker.on('click', () => {
+          showCityInfo(id);
+          map2D.setView([city.lat, city.lng], 8, { animate: true });
+        });
+        
+        map2DMarkers.push(marker);
+      });
+
+      // Fix map rendering
+      setTimeout(() => {
+        map2D.invalidateSize();
+      }, 100);
+    }
+
+    // Toggle between 2D and 3D maps
+    let currentMapMode = '3d'; // Start with 3D
+    
+    function toggleMapMode() {
+      const container = document.getElementById('Map');
+      const modeText = document.getElementById('mapModeText');
+      
+      if (currentMapMode === '3d') {
+        // Switch to 2D
+        currentMapMode = '2d';
+        container.classList.remove('map-3d');
+        container.classList.add('map-2d');
+        
+        // Clear 3D globe
+        if (map) {
+          map = null;
+        }
+        
+        // Initialize 2D map
+        init2DMap();
+        
+      } else {
+        // Switch to 3D
+        currentMapMode = '3d';
+        container.classList.remove('map-2d');
+        container.classList.add('map-3d');
+        
+        // Clear 2D map
+        if (map2D) {
+          map2D.remove();
+          map2D = null;
+          map2DMarkers = [];
+        }
+        
+        // Clear container
+        container.innerHTML = '';
+        
+        // Initialize 3D globe (button will be added in initMap)
+        initMap();
+      }
     }
 
     // Update showCityInfo function to handle photos and add click listeners
@@ -2466,23 +2884,51 @@ h3 {
 
         // Update photos from JavaScript data
         const gallery = cityInfo.querySelector('.city-gallery');
-        if (gallery && cities[cityId].photos) {
-          gallery.innerHTML = cities[cityId].photos.map(photo => 
-            `<img src="${photo.src}" alt="${photo.alt}" class="gallery-image">`
-          ).join('');
+        if (gallery && cities[cityId] && cities[cityId].photos) {
+          // Add gallery header if not exists
+          let galleryHeader = cityInfo.querySelector('.gallery-header');
+          if (!galleryHeader) {
+            galleryHeader = document.createElement('div');
+            galleryHeader.className = 'gallery-header';
+            galleryHeader.innerHTML = `
+              <div class="gallery-title">
+                <i class="fas fa-images"></i>
+                <span>Photo Gallery</span>
+              </div>
+              <div class="photo-count">${cities[cityId].photos.length} ${cities[cityId].photos.length === 1 ? 'Photo' : 'Photos'}</div>
+            `;
+            gallery.parentNode.insertBefore(galleryHeader, gallery);
+          } else {
+            // Update photo count
+            const photoCount = galleryHeader.querySelector('.photo-count');
+            if (photoCount) {
+              photoCount.textContent = `${cities[cityId].photos.length} ${cities[cityId].photos.length === 1 ? 'Photo' : 'Photos'}`;
+            }
+          }
 
-          // Add click listeners to the newly added images
-          const images = gallery.querySelectorAll('.gallery-image');
-          images.forEach(img => {
-            img.addEventListener('click', function() {
+          // Generate gallery items with overlay
+          gallery.innerHTML = cities[cityId].photos.map(photo => `
+            <div class="gallery-item">
+              <img src="${photo.src}" alt="${photo.alt}" class="gallery-image">
+              <div class="gallery-item-overlay">
+                <div class="gallery-item-caption">${photo.alt}</div>
+                <i class="fas fa-search-plus gallery-item-icon"></i>
+              </div>
+            </div>
+          `).join('');
+
+          // Add click listeners to the gallery items
+          const items = gallery.querySelectorAll('.gallery-item');
+          items.forEach(item => {
+            item.addEventListener('click', function() {
+              const img = this.querySelector('img');
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
-              if (modal && modalImg && captionText) {
-                console.log('Opening modal');
+              if (modal && modalImg && captionText && img) {
                 modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
+                modalImg.src = img.src;
+                captionText.innerHTML = img.alt;
               }
             });
           });
@@ -2496,39 +2942,20 @@ h3 {
       }
     }
 
-    // Function to update popup times
-    function updatePopupTimes() {
-      Object.entries(cities).forEach(([id, city]) => {
-        const marker = map.markers?.[id];
-        if (marker) {
-          const time = new Date().toLocaleTimeString('en-US', {
-            timeZone: city.timezone,
-            hour12: true,
-            hour: 'numeric',
-            minute: '2-digit'
-          });
-          marker.setPopupContent(`
-            <div class="map-popup">
-              <h3>${city.name}</h3>
-              <p>Last visited: ${city.date}</p>
-              <div class="city-time">Current Time: ${time}</div>
-            </div>
-          `);
-        }
-      });
-    }
-
-    // Initialize map when photograph section is shown
-    document.querySelector('[data-section="photograph"]').addEventListener('click', () => {
-      setTimeout(() => {
-        initMap();
-        // Update popup times every minute
-        setInterval(updatePopupTimes, 60000);
-      }, 100);
-    });
+    // Globe doesn't need time updates (handled in tooltips)
 
     // Initialize descriptions and photos with click listeners when the page loads
     document.addEventListener('DOMContentLoaded', () => {
+      // Initialize map when photograph section is shown
+      const photographLink = document.querySelector('[data-section="photograph"]');
+      if (photographLink) {
+        photographLink.addEventListener('click', () => {
+          setTimeout(() => {
+            initMap();
+          }, 100);
+        });
+      }
+
       Object.entries(cities).forEach(([id, city]) => {
         // Update description
         const description = document.querySelector(`#${id} .city-description`);
@@ -2537,23 +2964,47 @@ h3 {
         }
 
         // Update photos
+        const cityInfoElement = document.getElementById(id);
         const gallery = document.querySelector(`#${id}-gallery`);
+        
         if (gallery && city.photos) {
-          gallery.innerHTML = city.photos.map(photo => 
-            `<img src="${photo.src}" alt="${photo.alt}" class="gallery-image">`
-          ).join('');
+          // Add gallery header
+          let galleryHeader = document.querySelector(`#${id} .gallery-header`);
+          if (!galleryHeader) {
+            galleryHeader = document.createElement('div');
+            galleryHeader.className = 'gallery-header';
+            galleryHeader.innerHTML = `
+              <div class="gallery-title">
+                <i class="fas fa-images"></i>
+                <span>Photo Gallery</span>
+              </div>
+              <div class="photo-count">${city.photos.length} ${city.photos.length === 1 ? 'Photo' : 'Photos'}</div>
+            `;
+            gallery.parentNode.insertBefore(galleryHeader, gallery);
+          }
 
-          const images = gallery.querySelectorAll('.gallery-image');
-          images.forEach(img => {
-            img.addEventListener('click', function() {
+          // Generate gallery items
+          gallery.innerHTML = city.photos.map(photo => `
+            <div class="gallery-item">
+              <img src="${photo.src}" alt="${photo.alt}" class="gallery-image">
+              <div class="gallery-item-overlay">
+                <div class="gallery-item-caption">${photo.alt}</div>
+                <i class="fas fa-search-plus gallery-item-icon"></i>
+              </div>
+            </div>
+          `).join('');
+
+          const items = gallery.querySelectorAll('.gallery-item');
+          items.forEach(item => {
+            item.addEventListener('click', function() {
+              const img = this.querySelector('img');
               const modal = document.getElementById("photoModal");
               const modalImg = document.getElementById("modalImage");
               const captionText = document.getElementById("caption");
-              if (modal && modalImg && captionText) {
-                console.log('Opening modal');
+              if (modal && modalImg && captionText && img) {
                 modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
+                modalImg.src = img.src;
+                captionText.innerHTML = img.alt;
               }
             });
           });
