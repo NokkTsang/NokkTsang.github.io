@@ -1073,11 +1073,20 @@ h3 {
               <div class="info-grid">
                 <div class="info-item">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <h4><a href="https://www.tum.de/" target="_blank" rel="noopener noreferrer">Technical University of Munich</a></h4>
+                  <p style="cursor: pointer;" onclick="showCityInGallery('munich')"><i class="fas fa-map-marker-alt"></i> Munich, Germany</p>
+                  </div>
+                  <p><strong>Elite Master (M.Sc.) - AI in Biomedicine</strong></p>
+                  <div class="meta">Oct 2026 – 2028 (Anticipated)</div>
+                </div>
+
+                <div class="info-item">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">The Chinese University of Hong Kong</a></h4>
                   <p style="margin: 0; cursor: pointer;" onclick="showCityInGallery('hongKong')"><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
                   </div>
                   <p><strong>B.Sc. in Computer Science</strong></p>
-                  <div class="meta">Sep 2022 – Jul 2026 (Anticipated)</div>
+                  <div class="meta">Sep 2022 – Jul 2026</div>
                   <p>College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a></p>
                 </div>
                 
@@ -1793,6 +1802,62 @@ h3 {
               </div>
               <p class="city-description"></p>
               <div class="city-gallery" id="xian-gallery"></div>
+            </div>
+
+            <!-- Gansu Province-->
+            <!-- Lanzhou -->
+            <div id="lanzhou" class="city-info">
+              <div class="city-header">
+                <h3>Lanzhou</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="lanzhou-gallery"></div>
+            </div>
+
+            <!-- Zhangye -->
+            <div id="zhangye" class="city-info">
+              <div class="city-header">
+                <h3>Zhangye</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="zhangye-gallery"></div>
+            </div>
+
+            <!-- Jiayuguan -->
+            <div id="jiayuguan" class="city-info">
+              <div class="city-header">
+                <h3>Jiayuguan</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="jiayuguan-gallery"></div>
+            </div>
+
+            <!-- Dunhuang -->
+            <div id="dunhuang" class="city-info">
+              <div class="city-header">
+                <h3>Dunhuang</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="dunhuang-gallery"></div>
+            </div>
+
+            <!-- Qinghai Province-->
+            <!-- Golmud -->
+            <div id="golmud" class="city-info">
+              <div class="city-header">
+                <h3>Golmud</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="golmud-gallery"></div>
+            </div>
+
+            <!-- Xining -->
+            <div id="xining" class="city-info">
+              <div class="city-header">
+                <h3>Xining</h3>
+              </div>
+              <p class="city-description"></p>
+              <div class="city-gallery" id="xining-gallery"></div>
             </div>
 
             <!-- Shandong Province-->
@@ -2692,6 +2757,74 @@ h3 {
         timezone: "Asia/Shanghai",
         photos: [
           { src: "media/xian1.jpg", alt: "xxx" }
+        ]
+      },
+      // Gansu Province
+      lanzhou: {
+        lat: 36.06109,
+        lng: 103.8343,
+        name: "Lanzhou",
+        date: "2026.07",
+        description: "Capital of Gansu and a key stop along the Yellow River.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/lanzhou1.jpg", alt: "xxx" }
+        ]
+      },
+      zhangye: {
+        lat: 38.92588,
+        lng: 100.44981,
+        name: "Zhangye",
+        date: "2026.07",
+        description: "Known for the Hexi Corridor and the colorful Danxia landscapes nearby.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/zhangye1.jpg", alt: "xxx" }
+        ]
+      },
+      jiayuguan: {
+        lat: 39.77201,
+        lng: 98.28854,
+        name: "Jiayuguan",
+        date: "2026.07",
+        description: "Western end of the Ming Great Wall and a landmark city on the Hexi Corridor.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/jiayuguan1.jpg", alt: "xxx" }
+        ]
+      },
+      dunhuang: {
+        lat: 40.14211,
+        lng: 94.66159,
+        name: "Dunhuang",
+        date: "2026.07",
+        description: "Oasis city famous for the Mogao Caves and Silk Road history.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/dunhuang1.jpg", alt: "xxx" }
+        ]
+      },
+      // Qinghai Province
+      golmud: {
+        lat: 36.40123,
+        lng: 94.90329,
+        name: "Golmud",
+        date: "2026.07",
+        description: "A major transport hub on the Qinghai-Tibet Plateau.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/golmud1.jpg", alt: "xxx" }
+        ]
+      },
+      xining: {
+        lat: 36.61729,
+        lng: 101.77823,
+        name: "Xining",
+        date: "2026.07",
+        description: "Capital of Qinghai and the main gateway to the northeastern Tibetan Plateau.",
+        timezone: "Asia/Shanghai",
+        photos: [
+          { src: "media/xining1.jpg", alt: "xxx" }
         ]
       },
       //Shandong Province
