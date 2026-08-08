@@ -361,6 +361,21 @@
       border-left: none;
     }
 
+    .education-grid {
+      display: grid;
+      gap: var(--spacing-lg);
+    }
+
+    .education-grid .info-item {
+      padding-bottom: var(--spacing-sm);
+      border-bottom: 1px solid transparent;
+    }
+
+    .education-grid .info-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
     /* Language Proficiency with circles */
     .language-grid {
       display: grid;
@@ -1070,7 +1085,7 @@ h3 {
 
             <div class="section-item">
                 <h3><em>Educations</em></h3>
-              <div class="info-grid">
+              <div class="info-grid education-grid">
                 <div class="info-item">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.tum.de/" target="_blank" rel="noopener noreferrer">Technical University of Munich</a></h4>
@@ -1090,7 +1105,7 @@ h3 {
                   <p>College: <a href="https://www.shho.cuhk.edu.hk/" target="_blank" rel="noopener noreferrer">S.H. HO College</a> | Advisor: <a href="https://www.cse.cuhk.edu.hk/~taoyf/" target="_blank" rel="noopener noreferrer">Prof. Yu-Fei TAO</a></p>
                 </div>
                 
-                <div class="info-item" style="margin-top: var(--spacing-lg);">
+                <div class="info-item">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.uni-heidelberg.de/de" target="_blank" rel="noopener noreferrer">Heidelberg University</a></h4>
                   <p style="cursor: pointer;" onclick="showCityInGallery('heidelberg')"><i class="fas fa-map-marker-alt"></i> Heidelberg, Germany</p>
@@ -1099,7 +1114,7 @@ h3 {
                   <div class="meta">Jul 2025 - Aug 2025</div>
                 </div>
                 
-                <div class="info-item" style="margin-top: var(--spacing-lg);">
+                <div class="info-item">
                   <div style="display: flex; justify-content: space-between; align-items: center;">
                   <h4><a href="https://www.heungto.edu.hk/" target="_blank" rel="noopener noreferrer">Heung To Middle School</a></h4>
                   <p style="cursor: pointer;" onclick="showCityInGallery('hongKong')"><i class="fas fa-map-marker-alt"></i> Hong Kong SAR</p>
